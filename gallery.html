@@ -1,0 +1,59 @@
+<!-- index.html -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zane Morris</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="gallery.html">Gallery</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Photography Gallery</h1>
+  <p class="subtitle">A collection of miscellaneous photos</p>
+</section>
+
+<section class="gallery">
+  <img src="images/photo01.webp" class="portrait" data-caption="Sky Tower - Nikon F2, Amber 800T" />
+  <img src="images/photo03.webp" class="portrait" data-caption="Tuff Crater Bench - Canon AE-1 Program, Ultramax 400" />
+  <img src="images/photo02.webp" class="landscape" data-caption="Sunset at Takapuna - Canon AE-1 Program, Ultramax 400" />
+  <img src="images/photo09.webp" class="landscape" data-caption="Victoria Street W - Nikon F2, Gold 200" />
+  <img src="images/photo10.webp" class="landscape" data-caption="Symonds Street - Canon AE-1 Program, Colourplus 200" />
+  <img src="images/photo05.webp" class="landscape" data-caption="High Street - Nikon F2, Gold 100 @ ISO25" />
+  <img src="images/photo06.webp" class="landscape" data-caption="Whatever this plant is - Nikon F2AS, Gold 200" />
+ <img src="images/photo04.webp" class="portrait" data-caption="Omanawanui - Nikon F2AS, Portra 800" />
+  <img src="images/photo07.webp" class="portrait" data-caption="Pacifica - Nikon F2AS, Ilford HP5 Plus" />
+  <img src="images/photo08.webp" class="portrait" data-caption="Logging - Nikon F2, Portra 160" />
+  <img src="images/photo11.webp" class="portrait" data-caption="Wellesley Street W - Canon AE-1 Program, Colourplus 200" />
+  <img src="images/photo12.webp" class="landscape" data-caption="Gone Fishing - Nikon F2, Gold 200" />
+  <img src="images/photo13.webp" class="landscape" data-caption="Mezze - Nikon F2, Gold 200" />
+
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <div class="nav-zone left-zone"></div>
+  <div class="nav-zone right-zone"></div>
+  <span class="nav left">‹</span>
+  <img id="lightbox-img" />
+  <span class="nav right">›</span>
+  <span class="close-btn">✕</span>
+  <div id="caption"></div>
+</div>
+
+<footer class="footer">
+  © 2026 by Zane Morris.
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
+
