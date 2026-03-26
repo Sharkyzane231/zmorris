@@ -173,6 +173,11 @@ font-weight: 400;
     padding-bottom: 36px;
   }
 
+.hero-bio {
+  padding: 0 24px;
+}
+
+
   .nav-links {
     gap: 24px;
   }

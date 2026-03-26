@@ -3,20 +3,24 @@ const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
 const caption = document.getElementById('caption');
 const closeBtn = document.querySelector('.close-btn');
-
 let currentIndex = 0;
 
+// --- Lightbox open/close ---
 function openLightbox(index) {
   currentIndex = index;
   lightboxImg.src = images[currentIndex].src;
   caption.textContent = images[currentIndex].dataset.caption || '';
   lightbox.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox() {
   lightbox.style.display = 'none';
+  document.body.style.overflow = '';
+  
 }
 
+// --- Navigation ---
 function next() {
   lightboxImg.style.opacity = 0;
   setTimeout(() => {
@@ -40,13 +44,13 @@ function prev() {
 images.forEach((img, i) => img.addEventListener('click', () => openLightbox(i)));
 
 closeBtn.addEventListener('click', closeLightbox);
-
 document.querySelector('.nav.left').addEventListener('click', prev);
 document.querySelector('.nav.right').addEventListener('click', next);
-
 document.querySelector('.left-zone').addEventListener('click', prev);
 document.querySelector('.right-zone').addEventListener('click', next);
 
+
+// --- Background click to close ---
 lightbox.addEventListener('click', (e) => {
   if (
     e.target.classList.contains('nav-zone') ||
@@ -58,6 +62,7 @@ lightbox.addEventListener('click', (e) => {
   closeLightbox();
 });
 
+// --- Keyboard ---
 document.addEventListener('keydown', (e) => {
   if (lightbox.style.display !== 'flex') return;
   if (e.key === 'ArrowRight') next();
@@ -65,9 +70,9 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeLightbox();
 });
 
+// --- Topbar hide on scroll ---
 let lastScroll = 0;
 const topbar = document.querySelector('.topbar');
-
 window.addEventListener('scroll', () => {
   const current = window.scrollY;
   if (current > lastScroll && current > 80) {
@@ -78,10 +83,10 @@ window.addEventListener('scroll', () => {
   lastScroll = current;
 });
 
+// --- Gallery fade in on load ---
 images.forEach((img) => {
   const reveal = () => {
-    img.style.opacity = 1;
-    img.style.transform = 'translateY(0)';
+    img.classList.add('loaded');
   };
   if (img.complete) {
     reveal();
@@ -89,7 +94,3 @@ images.forEach((img) => {
     img.addEventListener('load', reveal);
   }
 });
-
-const reveal = () => {
-  img.classList.add('loaded');
-};
