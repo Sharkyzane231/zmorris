@@ -20,25 +20,18 @@ if (lightbox) {
     document.body.style.overflow = '';
   }
 
-  function next() {
+  function navigate(newIndex) {
     lightboxImg.style.opacity = 0;
-    setTimeout(() => {
-      currentIndex = (currentIndex + 1) % images.length;
+    lightboxImg.addEventListener('transitionend', () => {
+      currentIndex = newIndex;
       lightboxImg.src = images[currentIndex].src;
       caption.textContent = images[currentIndex].dataset.caption || '';
       lightboxImg.style.opacity = 1;
-    }, 200);
+    }, { once: true });
   }
 
-  function prev() {
-    lightboxImg.style.opacity = 0;
-    setTimeout(() => {
-      currentIndex = (currentIndex - 1 + images.length) % images.length;
-      lightboxImg.src = images[currentIndex].src;
-      caption.textContent = images[currentIndex].dataset.caption || '';
-      lightboxImg.style.opacity = 1;
-    }, 200);
-  }
+  function next() { navigate((currentIndex + 1) % images.length); }
+  function prev() { navigate((currentIndex - 1 + images.length) % images.length); }
 
   images.forEach((img, i) => img.addEventListener('click', () => openLightbox(i)));
   closeBtn.addEventListener('click', closeLightbox);
@@ -95,18 +88,9 @@ if (toggleBtn) {
 
 
 // --- Project Cards Fade-up ---
-const cards = document.querySelectorAll('.project-card');
-if (cards.length) {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  cards.forEach(card => observer.observe(card));
-}
+document.querySelectorAll('.project-card').forEach((card, i) => {
+  card.style.animationDelay = (i * 80) + 'ms';
+});
 
 // --- Topbar hide on scroll ---
 let lastScroll = 0;
