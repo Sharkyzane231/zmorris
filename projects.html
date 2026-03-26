@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zane Morris</title>
   <link rel="stylesheet" href="styles.css">
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
 </head>
 <body>
 
 <header class="topbar">
+  <button id="theme-toggle" aria-label="Toggle theme">☀</button>
   <nav class="nav-links">
     <a href="index.html">Home</a>
     <a href="projects.html">Projects</a>
@@ -18,12 +20,147 @@
 
 <section class="hero">
   <h1>Projects</h1>
-  <p class="subtitle">WIP</p>
+  <p class="subtitle">A selection of my work</p>
   <hr class="hero-divider">
-  <div class="hero-bio">
-    <p></p>
-    <a href="" class="btn">Button</a>
+</section>
+
+<section class="projects-grid">
+
+  <div class="project-card">
+    <div class="project-img-wrap">
+      <img src="" alt="Underwater Transducer">
+    </div>
+    <div class="project-body">
+      <h3>Underwater Transducer</h3>
+      <p>Designed and built a high-efficiency underwater transducer, optimised for acoustic performance and minimal energy loss in submerged conditions.</p>
+    </div>
+    <div class="project-tags">
+      <span class="tag">Acoustics</span>
+      <span class="tag">Engineering</span>
+      <span class="tag">Electronics</span>
+    </div>
   </div>
+
+  <div class="project-card">
+    <div class="project-img-wrap">
+      <img src="" alt="Multitool Keychain">
+    </div>
+    <div class="project-body">
+      <h3>SLS Multitool Keychain</h3>
+      <p>A compact, non-movable multitool keychain produced via selective laser sintering in aluminium. Designed for everyday carry with multiple integrated functions.</p>
+    </div>
+    <div class="project-tags">
+      <span class="tag">SLS</span>
+      <span class="tag">Aluminium</span>
+      <span class="tag">CAD</span>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-img-wrap">
+      <img src="" alt="Structural Bracket">
+    </div>
+    <div class="project-body">
+      <h3>Structural Bracket</h3>
+      <p>CAD-designed bracket with FEA optimisation in Ansys. Engineered to withstand 3 kN upward and 4 kN downward loading while minimising material use.</p>
+    </div>
+    <div class="project-tags">
+      <span class="tag">CAD</span>
+      <span class="tag">Ansys</span>
+      <span class="tag">FEA</span>
+      <span class="tag">Structural</span>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-img-wrap">
+      <img src="" alt="Ball Transport Box">
+    </div>
+    <div class="project-body">
+      <h3>Ball Transport Box</h3>
+      <p>3D printed mechanism designed to autonomously move a ball from one end of an enclosure to the other, exploring passive mechanical motion.</p>
+    </div>
+    <div class="project-tags">
+      <span class="tag">3D Printing</span>
+      <span class="tag">Mechanism Design</span>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-img-wrap">
+      <img src="" alt="Keyboard Enhancements">
+    </div>
+    <div class="project-body">
+      <h3>Keyboard Enhancements</h3>
+      <p>Hotswap modded a keyboard by hand-soldering Mill-Max sockets, allowing switches to be swapped without desoldering. Improved feel and repairability.</p>
+    </div>
+    <div class="project-tags">
+      <span class="tag">Soldering</span>
+      <span class="tag">Hotswap</span>
+      <span class="tag">Keyboards</span>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-img-wrap">
+      <img src="" alt="Mouse Repairs">
+    </div>
+    <div class="project-body">
+      <h3>Mouse Repairs &amp; Enhancements</h3>
+      <p>Repaired and upgraded mice by replacing worn microswitches and scroll wheel encoders, restoring click feel and extending hardware life.</p>
+    </div>
+    <div class="project-tags">
+      <span class="tag">Soldering</span>
+      <span class="tag">Repair</span>
+      <span class="tag">Peripherals</span>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-img-wrap">
+      <img src="" alt="Film Scanning Setup">
+    </div>
+    <div class="project-body">
+      <h3>35mm Film Scanning Setup</h3>
+      <p>Built a dedicated film scanning rig for 35mm negatives, balancing colour accuracy, resolution, and workflow speed for analogue-to-digital archiving.</p>
+    </div>
+    <div class="project-tags">
+      <span class="tag">Film</span>
+      <span class="tag">Photography</span>
+      <span class="tag">DIY</span>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-img-wrap">
+      <img src="" alt="Camera Repair">
+    </div>
+    <div class="project-body">
+      <h3>Camera Repair &amp; CLAs</h3>
+      <p>Serviced and cleaned several film cameras through complete lens and aperture overhauls (CLAs), restoring accurate shutter speeds and clear optics.</p>
+    </div>
+    <div class="project-tags">
+      <span class="tag">Film</span>
+      <span class="tag">Repair</span>
+      <span class="tag">CLA</span>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-img-wrap">
+      <img src="" alt="Photography Events">
+    </div>
+    <div class="project-body">
+      <h3>Photography Events</h3>
+      <p>Shot a range of events on both film and digital, covering portraits, candid moments, and environments with a focus on natural light and composition.</p>
+    </div>
+    <div class="project-tags">
+      <span class="tag">Photography</span>
+      <span class="tag">Events</span>
+      <span class="tag">Film</span>
+    </div>
+  </div>
+
 </section>
 
 <footer class="footer">

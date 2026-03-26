@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zane Morris</title>
   <link rel="stylesheet" href="styles.css">
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
 </head>
 <body>
 
 <header class="topbar">
+  <button id="theme-toggle" aria-label="Toggle theme">☀</button>
   <nav class="nav-links">
     <a href="index.html">Home</a>
     <a href="projects.html">Projects</a>
