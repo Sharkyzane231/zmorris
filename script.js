@@ -68,9 +68,14 @@ if (lightbox) {
 // --- Theme Toggle ---
 const toggleBtn = document.getElementById('theme-toggle');
 if (toggleBtn) {
+  const moonSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="display:block;pointer-events:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
   const updateIcon = () => {
     const dark = document.documentElement.getAttribute('data-theme') === 'dark';
-    toggleBtn.textContent = dark ? '☀' : '☾';
+    if (dark) {
+      toggleBtn.textContent = '☀';
+    } else {
+      toggleBtn.innerHTML = moonSVG;
+    }
   };
   updateIcon();
   toggleBtn.addEventListener('click', () => {
@@ -133,26 +138,16 @@ document.querySelectorAll('.project-img-wrap[data-images]').forEach(wrap => {
 });
 
 // --- Article Inline Expand ---
+let activeCard  = null;
+let activeClose = null;
+
 document.querySelectorAll('.project-card[data-article]').forEach(card => {
   const article     = card.querySelector('.card-article');
   const articleBody = card.querySelector('.card-article-body');
-  const bottomBar = card.querySelector('.article-bar-bottom');
-  if (bottomBar) bottomBar.addEventListener('click', (ev) => { ev.stopPropagation(); closeArticle(); });
+  const bottomBar   = card.querySelector('.article-bar-bottom');
 
-  function openArticle() {
-    card.classList.add('article-open');
-    article.style.height = article.scrollHeight + 'px';
-    article.style.opacity = '1';
-    function onOpen(e) {
-      if (e.propertyName !== 'height') return;
-      article.removeEventListener('transitionend', onOpen);
-      article.style.height = 'auto';
-    }
-    article.addEventListener('transitionend', onOpen);
-    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  function closeArticle() {
+  function closeArticle(skipScroll = false, onDone = null) {
+    if (card.classList.contains('article-closing')) return;
     article.style.height = article.scrollHeight + 'px';
     article.offsetHeight; // force reflow
     card.classList.add('article-closing');
@@ -164,21 +159,58 @@ document.querySelectorAll('.project-card[data-article]').forEach(card => {
       card.classList.remove('article-open', 'article-closing');
       article.style.height = '';
       article.style.opacity = '';
-      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (activeCard === card) { activeCard = null; activeClose = null; }
+      if (!skipScroll) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (onDone) onDone();
     }
     article.addEventListener('transitionend', onClose);
+  }
+
+  function openArticle() {
+    const hadPrevious = activeCard && activeCard !== card;
+    if (hadPrevious) {
+      activeClose(true, () => {
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }));
+      });
+    }
+    activeCard = card;
+    activeClose = closeArticle;
+    card.classList.add('article-open');
+    article.style.height = article.scrollHeight + 'px';
+    article.style.opacity = '1';
+    function onOpen(e) {
+      if (e.propertyName !== 'height') return;
+      article.removeEventListener('transitionend', onOpen);
+      article.style.height = 'auto';
+    }
+    article.addEventListener('transitionend', onOpen);
+    if (!hadPrevious) {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }));
+    }
   }
 
   card.addEventListener('click', (ev) => {
     if (!card.classList.contains('article-open')) {
       openArticle();
     } else if (!articleBody.contains(ev.target)) {
+      if (activeCard === card) { activeCard = null; activeClose = null; }
       closeArticle();
     }
   });
 
+  if (bottomBar) bottomBar.addEventListener('click', (ev) => {
+    ev.stopPropagation();
+    if (activeCard === card) { activeCard = null; activeClose = null; }
+    closeArticle();
+  });
+
   document.addEventListener('click', (ev) => {
     if (card.classList.contains('article-open') && !card.contains(ev.target)) {
+      if (activeCard === card) { activeCard = null; activeClose = null; }
       closeArticle();
     }
   });

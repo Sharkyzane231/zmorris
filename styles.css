@@ -116,11 +116,11 @@ body {
   color: var(--nav-link);
   text-decoration: none;
   letter-spacing: 0.02em;
-  transition: color 0.3s ease;
+  transition: color 0.1s ease;
 }
 
 .nav-links a:hover {
-  text-decoration: underline;
+  color: var(--subtitle);
 }
 
 /* --- Theme Toggle --- */
@@ -134,12 +134,17 @@ body {
   color: var(--toggle-color);
   padding: 4px;
   line-height: 1;
-  transition: color 0.3s ease, opacity 0.2s ease;
+  width: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.1s ease, opacity 0.1s ease;
   opacity: 0.7;
 }
 
 #theme-toggle:hover {
   opacity: 1;
+  color: var(--subtitle);
 }
 
 /* --- Hero --- */
@@ -248,7 +253,8 @@ body {
   display: flex;
   flex-direction: column;
   animation: cardFadeUp 0.6s ease both;
-  transition: background 0.3s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: background 0.3s ease, border-color 0.1s ease, box-shadow 0.1s ease;
+  position: relative;
 }
 
 @keyframes cardFadeUp {
@@ -258,7 +264,19 @@ body {
 
 .project-card:hover {
   border-color: var(--subtitle);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.project-card.article-open,
+.project-card.article-open:hover {
+  border-color: var(--subtitle);
+  box-shadow: none;
+}
+
+.project-card.featured.article-open,
+.project-card.featured.article-open:hover {
+  border-color: #c9a84c;
+  box-shadow: none;
 }
 
 .project-card.featured {
@@ -266,7 +284,7 @@ body {
 }
 
 .project-card.featured:hover {
-  box-shadow: inset 0 0 0 1px #c9a84c, 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0 0.5px #c9a84c, 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .project-img-wrap {
@@ -411,7 +429,7 @@ body {
   border-right: 1.5px solid var(--bio-color);
   border-bottom: 1.5px solid var(--bio-color);
   transform: rotate(45deg);
-  transition: transform 0.35s ease, border-color 0.2s ease, filter 0.2s ease;
+  transition: transform 0.35s ease, border-color 0.1s ease, filter 0.1s ease;
 }
 
 .project-card[data-article]:hover .card-chevron,
@@ -523,7 +541,7 @@ body {
   inset: 0;
   background: white;
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.1s ease;
   pointer-events: none;
 }
 
@@ -532,7 +550,7 @@ body {
 }
 
 .gallery-item:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .gallery img {
