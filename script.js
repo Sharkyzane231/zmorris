@@ -40,7 +40,7 @@ if (lightbox) {
     currentIndex = index;
     lightboxImg.src = images[currentIndex].src;
     caption.textContent = images[currentIndex].dataset.caption || '';
-    lightbox.style.display = 'grid';
+    lightbox.style.display = 'block';
     document.body.style.overflow = 'hidden';
     requestAnimationFrame(updateNavZones);
   }
@@ -87,7 +87,7 @@ if (lightbox) {
   });
 
   document.addEventListener('keydown', (e) => {
-    if (lightbox.style.display !== 'grid') return;
+    if (lightbox.style.display !== 'block') return;
     if (e.key === 'ArrowRight') next();
     if (e.key === 'ArrowLeft') prev();
     if (e.key === 'Escape') closeLightbox();
