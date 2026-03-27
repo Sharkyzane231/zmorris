@@ -181,7 +181,7 @@ body {
 }
 
 .hero-bio {
-  max-width: 520px;
+  max-width: 620px;
   margin: -6px auto 0;
   text-align: justify;
   font-size: 14px;
@@ -199,21 +199,22 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  justify-items: center;
+  column-gap: clamp(8px, 2vw, 16px);
   padding: 0 clamp(16px, 4vw, 32px) 60px;
   box-sizing: border-box;
   margin-top: 36px;
-  max-width: 520px;
+  max-width: 620px;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
 
 .profile-img {
-  width: 84%;
+  width: min(230px, calc(100% - clamp(16px, 4vw, 32px)));
   object-fit: cover;
   object-position: top;
   display: block;
+  justify-self: end;
   transition: box-shadow 0.3s ease;
 }
 
@@ -449,10 +450,12 @@ body {
 }
 
 .photo-img-bar {
-  display: none;
+  display: flex;
+  height: 0;
+  overflow: hidden;
   align-items: center;
   justify-content: space-between;
-  padding: 7px 14px;
+  padding: 0 14px;
   background: var(--subtitle);
   color: #fff;
   font-size: 13px;
@@ -652,17 +655,16 @@ body {
 @media (max-width: 460px) {
   .hero-profile {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 36px;
     padding: 0 24px 40px;
   }
 
   .profile-img {
     width: 62%;
+    justify-self: center;
   }
 
   .profile-btns {
-    flex-direction: row;
-    flex-wrap: wrap;
     justify-content: center;
     gap: 12px;
   }
