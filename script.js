@@ -7,12 +7,41 @@ if (lightbox) {
   const closeBtn = document.querySelector('.close-btn');
   let currentIndex = 0;
 
+  const leftZone  = document.querySelector('.left-zone');
+  const rightZone = document.querySelector('.right-zone');
+  const leftArrow  = document.querySelector('.nav.left');
+  const rightArrow = document.querySelector('.nav.right');
+  const arrowFixed = 30;
+
+  leftZone.addEventListener('mouseenter', () => leftArrow.classList.add('nav-hover'));
+  leftZone.addEventListener('mouseleave', () => leftArrow.classList.remove('nav-hover'));
+  rightZone.addEventListener('mouseenter', () => rightArrow.classList.add('nav-hover'));
+  rightZone.addEventListener('mouseleave', () => rightArrow.classList.remove('nav-hover'));
+
+  function updateNavZones() {
+    const rect = lightboxImg.getBoundingClientRect();
+    const gap = rect.left;
+    const preferred = window.innerWidth <= 700 ? 60 : 120;
+    const width = Math.min(preferred, gap);
+    leftZone.style.width  = width + 'px';
+    rightZone.style.width = width + 'px';
+    const arrowW = leftArrow.offsetWidth;
+    const centered = gap / 2 - arrowW / 2;
+    const arrowPos = Math.min(arrowFixed, centered) + 'px';
+    leftArrow.style.setProperty('--arrow-pos', arrowPos);
+    rightArrow.style.setProperty('--arrow-pos', arrowPos);
+  }
+
+  lightboxImg.addEventListener('load', updateNavZones);
+  window.addEventListener('resize', updateNavZones);
+
   function openLightbox(index) {
     currentIndex = index;
     lightboxImg.src = images[currentIndex].src;
     caption.textContent = images[currentIndex].dataset.caption || '';
     lightbox.style.display = 'flex';
     document.body.style.overflow = 'hidden';
+    requestAnimationFrame(updateNavZones);
   }
 
   function closeLightbox() {
@@ -134,6 +163,63 @@ document.querySelectorAll('.project-img-wrap[data-images]').forEach(wrap => {
   next.addEventListener('click', (e) => { e.stopPropagation(); goTo(current + 1); });
 });
 
+// --- Photo Events Image Cycling ---
+const photoImgWrap = document.querySelector('.project-img-wrap[data-photos]');
+if (photoImgWrap) {
+  const photos = JSON.parse(photoImgWrap.dataset.photos);
+  const img = photoImgWrap.querySelector('img');
+  const bar = photoImgWrap.closest('.project-card').querySelector('.photo-img-bar');
+  const barCaption = bar.querySelector('span');
+  const barLink = bar.querySelector('.photo-img-bar-link');
+  let current = 0;
+
+  if (photos.length > 1) {
+    const prev = document.createElement('button');
+    prev.className = 'img-nav img-prev';
+    prev.innerHTML = '&#8249;';
+    const next = document.createElement('button');
+    next.className = 'img-nav img-next';
+    next.innerHTML = '&#8250;';
+
+    const dotsWrap = document.createElement('div');
+    dotsWrap.className = 'img-dots';
+    photos.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'img-dot' + (i === 0 ? ' active' : '');
+      dotsWrap.appendChild(dot);
+    });
+
+    photoImgWrap.appendChild(prev);
+    photoImgWrap.appendChild(next);
+    photoImgWrap.appendChild(dotsWrap);
+
+    const dots = dotsWrap.querySelectorAll('.img-dot');
+
+    const goTo = (n) => {
+      current = (n + photos.length) % photos.length;
+      img.src = photos[current].src;
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      updateBar(current);
+    };
+
+    prev.addEventListener('click', (e) => { e.stopPropagation(); goTo(current - 1); });
+    next.addEventListener('click', (e) => { e.stopPropagation(); goTo(current + 1); });
+  }
+
+  function updateBar(index) {
+    const photo = photos[index];
+    barCaption.textContent = photo.caption || '';
+    if (photo.link) {
+      barLink.dataset.href = photo.link;
+      barLink.style.visibility = '';
+    } else {
+      barLink.style.visibility = 'hidden';
+    }
+  }
+
+  updateBar(0);
+}
+
 // --- Article Inline Expand ---
 let activeCard  = null;
 let activeClose = null;
@@ -148,22 +234,36 @@ document.querySelectorAll('.project-card[data-article]').forEach(card => {
     article.style.height = article.scrollHeight + 'px';
     article.offsetHeight; // force reflow
     card.classList.add('article-closing');
+    article.style.transition = 'opacity 0.3s ease, height 0.55s cubic-bezier(0.4, 0, 0.2, 1) 0.25s';
     article.style.height = '0px';
     article.style.opacity = '0';
     function onClose(e) {
       if (e.propertyName !== 'height') return;
       article.removeEventListener('transitionend', onClose);
-      card.classList.remove('article-open', 'article-closing');
-      article.style.height = '';
-      article.style.opacity = '';
-      if (activeCard === card) { activeCard = null; activeClose = null; }
-      if (!skipScroll) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      if (onDone) onDone();
+
+      const siblings = Array.from(document.querySelectorAll('.project-card')).filter(c => c !== card);
+      siblings.forEach(c => { c.style.transition = 'opacity 0.25s ease'; c.style.opacity = '0'; });
+
+      requestAnimationFrame(() => {
+        card.classList.remove('article-open', 'article-closing');
+        article.style.height = '';
+        article.style.opacity = '';
+        article.style.transition = '';
+        if (activeCard === card) { activeCard = null; activeClose = null; }
+
+        requestAnimationFrame(() => {
+          siblings.forEach(c => { c.style.opacity = '1'; });
+          setTimeout(() => siblings.forEach(c => { c.style.transition = ''; }), 350);
+          if (!skipScroll) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (onDone) onDone();
+        });
+      });
     }
     article.addEventListener('transitionend', onClose);
   }
 
   function openArticle() {
+    card.style.animation = 'none';
     const hadPrevious = activeCard && activeCard !== card;
     if (hadPrevious) {
       activeClose(true, () => {
@@ -213,15 +313,6 @@ document.querySelectorAll('.project-card[data-article]').forEach(card => {
   });
 });
 
-// --- Photography Events Dropdown ---
-const photoCard = document.getElementById('photo-events-card');
-const photoDrawer = document.getElementById('photo-drawer');
-if (photoCard && photoDrawer) {
-  photoCard.addEventListener('click', () => {
-    photoCard.classList.toggle('open');
-    photoDrawer.classList.toggle('open');
-  });
-}
 
 // --- Topbar hide on scroll ---
 let lastScroll = 0;
