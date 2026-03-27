@@ -681,13 +681,13 @@ body {
   height: 100%;
   background: var(--lightbox-bg);
   display: none;
-  align-items: center;
-  justify-content: center;
+  place-items: center;
   z-index: 200;
+  overflow: hidden;
 }
 
 .lightbox.active {
-  display: flex;
+  display: grid;
 }
 
 .lightbox-img-wrap {
