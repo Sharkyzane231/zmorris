@@ -230,7 +230,7 @@ body {
 }
 
 .profile-btns .btn {
-  width: 140px;
+  width: min(140px, calc(100% - clamp(16px, 4vw, 32px)));
   text-align: center;
 }
 
@@ -311,7 +311,7 @@ body {
   aspect-ratio: 16 / 9;
   background: var(--card-img-bg);
   overflow: hidden;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, aspect-ratio 0.25s ease;
   position: relative;
 }
 
@@ -451,7 +451,7 @@ body {
 
 .photo-img-bar {
   display: flex;
-  height: 0;
+  max-height: 0;
   overflow: hidden;
   align-items: center;
   justify-content: space-between;
@@ -460,6 +460,7 @@ body {
   color: #fff;
   font-size: 13px;
   line-height: 1;
+  transition: max-height 0.4s ease, padding 0.4s ease;
 }
 
 .photo-img-bar-link {
@@ -475,7 +476,8 @@ body {
 }
 
 .project-card.article-open .photo-img-bar {
-  display: flex;
+  max-height: 40px;
+  padding: 7px 14px;
 }
 
 .card-article {
@@ -682,16 +684,18 @@ body {
   align-items: center;
   justify-content: center;
   z-index: 200;
-  flex-direction: column;
-  gap: 12px;
 }
 
 .lightbox.active {
   display: flex;
 }
 
+.lightbox-img-wrap {
+  position: relative;
+}
+
 .lightbox img {
-  max-width: 75%;
+  max-width: 75vw;
   max-height: 80vh;
   display: block;
   transition: opacity 0.08s ease;
@@ -725,12 +729,14 @@ body {
 .right-zone::before { background: linear-gradient(to left,  rgba(0,0,0,0.18) 0%, transparent 100%); }
 
 #caption {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 1rem;
   font-weight: 500;
   color: var(--caption-color);
   letter-spacing: 0.03em;
-  margin-top: 12px;
-  max-width: 67.5vw;
   text-align: center;
 }
 
