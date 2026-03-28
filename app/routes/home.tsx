@@ -1,9 +1,5 @@
 import { Hero } from "../components/Hero";
 
-export function meta() {
-  return [{ title: "Zane Morris" }];
-}
-
 export default function Home() {
   return (
     <Hero title="Zane Morris" subtitle="Mechanical Engineer">

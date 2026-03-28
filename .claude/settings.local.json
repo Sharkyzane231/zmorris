@@ -5,7 +5,11 @@
       "Bash(npx react-router:*)",
       "Bash(node -e \"try { require.resolve\\(''@react-router/node''\\); console.log\\(''found''\\) } catch\\(e\\) { console.log\\(''not found:'', e.message\\) }\")",
       "Bash(node -e \":*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(rm -f react-router.config.ts app/routes.ts app/root.tsx)",
+      "Bash(rm -rf .react-router build)",
+      "Bash(npm uninstall:*)",
+      "Bash(npx vite:*)"
     ]
   }
 }

@@ -3,10 +3,6 @@ import { Hero } from "../components/Hero";
 import { Lightbox } from "../components/Lightbox";
 import { galleryPhotos } from "../data/gallery";
 
-export function meta() {
-  return [{ title: "Gallery — Zane Morris" }];
-}
-
 function GalleryImage({
   src,
   caption,

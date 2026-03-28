@@ -4,10 +4,6 @@ import { ProjectCard } from "../components/ProjectCard";
 import { ArticleOverlay } from "../components/ArticleOverlay";
 import { projects, type Project } from "../data/projects";
 
-export function meta() {
-  return [{ title: "Projects — Zane Morris" }];
-}
-
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
