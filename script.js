@@ -227,8 +227,9 @@ if (photoImgWrap) {
 }
 
 // --- Article Inline Expand ---
-let activeCard  = null;
-let activeClose = null;
+let activeCard    = null;
+let activeClose   = null;
+let articleClosing = false;
 
 document.querySelectorAll('.project-card[data-article]').forEach(card => {
   const article     = card.querySelector('.card-article');
@@ -237,14 +238,17 @@ document.querySelectorAll('.project-card[data-article]').forEach(card => {
 
   function closeArticle(onDone = null) {
     if (card.classList.contains('article-closing')) return;
+    articleClosing = true;
+    const fullRect    = card.getBoundingClientRect();
+    const naturalRect = card._naturalRect;
     const photoBar = card.querySelector('.photo-img-bar');
-    const imgWrap = card.querySelector('.project-img-wrap');
+    const imgWrap  = card.querySelector('.project-img-wrap');
     if (imgWrap) {
       imgWrap.style.transition = 'background 0.3s ease, aspect-ratio 0.55s ease 0.25s';
       imgWrap.style.aspectRatio = '16 / 9';
     }
     article.style.height = article.scrollHeight + 'px';
-    article.offsetHeight; // force reflow
+    article.offsetHeight;
     card.classList.add('article-closing');
     article.style.transition = 'opacity 0.3s ease, height 0.55s cubic-bezier(0.4, 0, 0.2, 1) 0.25s';
     if (photoBar) {
@@ -254,23 +258,56 @@ document.querySelectorAll('.project-card[data-article]').forEach(card => {
     }
     article.style.height = '0px';
     article.style.opacity = '0';
+
     function onClose(e) {
       if (e.propertyName !== 'height') return;
       article.removeEventListener('transitionend', onClose);
-      if (photoBar) { photoBar.style.transition = ''; photoBar.style.maxHeight = ''; photoBar.style.padding = ''; }
-      if (imgWrap) { imgWrap.style.transition = ''; imgWrap.style.aspectRatio = ''; }
+      article.style.height = '';
+      article.style.opacity = '';
+      article.style.transition = '';
 
-      requestAnimationFrame(() => {
+      if (naturalRect && naturalRect.width < fullRect.width * 0.95) {
+        // Animate card width back to its natural column size
+        card.style.justifySelf = 'start';
+        card.style.width = fullRect.width + 'px';
+        card.style.marginLeft = '0px';
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          card.style.transition = 'width 0.35s ease, margin-left 0.35s ease';
+          card.style.width      = naturalRect.width + 'px';
+          card.style.marginLeft = (naturalRect.left - fullRect.left) + 'px';
+          let fallback;
+          function cleanup() {
+            clearTimeout(fallback);
+            card.removeEventListener('transitionend', onWidth);
+            card.classList.remove('article-open', 'article-closing');
+            if (photoBar) { photoBar.style.transition = ''; photoBar.style.maxHeight = ''; photoBar.style.padding = ''; }
+            if (imgWrap)  { imgWrap.style.transition = ''; imgWrap.style.aspectRatio = ''; }
+            card.style.justifySelf = '';
+            card.style.width       = '';
+            card.style.marginLeft  = '';
+            card.style.transition  = '';
+            if (activeCard === card) { activeCard = null; activeClose = null; }
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+              articleClosing = false;
+              lastScroll = window.scrollY;
+            }));
+            if (onDone) onDone();
+          }
+          function onWidth(e) { if (e.propertyName !== 'width') return; cleanup(); }
+          card.addEventListener('transitionend', onWidth);
+          fallback = setTimeout(cleanup, 500);
+        }));
+      } else {
         card.classList.remove('article-open', 'article-closing');
-        article.style.height = '';
-        article.style.opacity = '';
-        article.style.transition = '';
+        if (photoBar) { photoBar.style.transition = ''; photoBar.style.maxHeight = ''; photoBar.style.padding = ''; }
+        if (imgWrap)  { imgWrap.style.transition = ''; imgWrap.style.aspectRatio = ''; }
         if (activeCard === card) { activeCard = null; activeClose = null; }
-
-        requestAnimationFrame(() => {
-          if (onDone) onDone();
-        });
-      });
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          articleClosing = false;
+          lastScroll = window.scrollY;
+        }));
+        if (onDone) onDone();
+      }
     }
     article.addEventListener('transitionend', onClose);
   }
@@ -278,8 +315,8 @@ document.querySelectorAll('.project-card[data-article]').forEach(card => {
   function openArticle() {
     card.style.animation = 'none';
     const photoBar = card.querySelector('.photo-img-bar');
-    const imgWrap = card.querySelector('.project-img-wrap');
-    if (imgWrap) { imgWrap.style.transition = ''; imgWrap.style.aspectRatio = ''; }
+    const imgWrap  = card.querySelector('.project-img-wrap');
+    if (imgWrap)  { imgWrap.style.transition = ''; imgWrap.style.aspectRatio = ''; }
     if (photoBar) { photoBar.style.transition = ''; photoBar.style.maxHeight = ''; photoBar.style.padding = ''; }
     const hadPrevious = activeCard && activeCard !== card;
     if (hadPrevious) {
@@ -289,25 +326,63 @@ document.querySelectorAll('.project-card[data-article]').forEach(card => {
         }));
       });
     }
-    activeCard = card;
+    activeCard  = card;
     activeClose = closeArticle;
+
+    const naturalRect = card.getBoundingClientRect();
     card.classList.add('article-open');
-    article.style.height = article.scrollHeight + 'px';
-    article.style.opacity = '1';
-    function onOpen(e) {
-      if (e.propertyName !== 'height') return;
-      article.removeEventListener('transitionend', onOpen);
-      article.style.height = 'auto';
-    }
-    article.addEventListener('transitionend', onOpen);
-    if (!hadPrevious) {
+    const fullRect = card.getBoundingClientRect();
+    card._naturalRect = naturalRect;
+
+    if (naturalRect.width < fullRect.width * 0.95) {
+      // Freeze card at natural column width, then animate to full width
+      card.style.justifySelf = 'start';
+      card.style.width       = naturalRect.width + 'px';
+      card.style.marginLeft  = (naturalRect.left - fullRect.left) + 'px';
       requestAnimationFrame(() => requestAnimationFrame(() => {
-        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        card.style.transition = 'width 0.4s ease, margin-left 0.4s ease';
+        card.style.width      = fullRect.width + 'px';
+        card.style.marginLeft = '0px';
+        card.addEventListener('transitionend', function onWidth(e) {
+          if (e.propertyName !== 'width') return;
+          card.removeEventListener('transitionend', onWidth);
+          card.style.justifySelf = '';
+          card.style.width       = '';
+          card.style.marginLeft  = '';
+          card.style.transition  = '';
+          // Start height after width finishes
+          article.style.height  = article.scrollHeight + 'px';
+          article.style.opacity = '1';
+          article.addEventListener('transitionend', function onHeight(e) {
+            if (e.propertyName !== 'height') return;
+            article.removeEventListener('transitionend', onHeight);
+            article.style.height = 'auto';
+          });
+          if (!hadPrevious) {
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+              card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }));
+          }
+        });
       }));
+    } else {
+      article.style.height  = article.scrollHeight + 'px';
+      article.style.opacity = '1';
+      article.addEventListener('transitionend', function onOpen(e) {
+        if (e.propertyName !== 'height') return;
+        article.removeEventListener('transitionend', onOpen);
+        article.style.height = 'auto';
+      });
+      if (!hadPrevious) {
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }));
+      }
     }
   }
 
   card.addEventListener('click', (ev) => {
+    if (card.classList.contains('article-closing')) return;
     if (!card.classList.contains('article-open')) {
       openArticle();
     } else if (!articleBody.contains(ev.target)) {
@@ -336,6 +411,7 @@ let lastScroll = 0;
 const topbar = document.querySelector('.topbar');
 window.addEventListener('scroll', () => {
   const current = window.scrollY;
+  if (articleClosing) { lastScroll = current; return; }
   if (current > lastScroll && current > 80) {
     topbar.classList.add('hidden');
   } else {
