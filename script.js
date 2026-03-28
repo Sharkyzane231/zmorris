@@ -41,13 +41,13 @@ if (lightbox) {
     lightboxImg.src = images[currentIndex].src;
     caption.textContent = images[currentIndex].dataset.caption || '';
     lightbox.style.display = 'block';
-    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
     requestAnimationFrame(updateNavZones);
   }
 
   function closeLightbox() {
     lightbox.style.display = 'none';
-    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
   }
 
   function navigate(newIndex) {
@@ -229,31 +229,95 @@ if (photoImgWrap) {
 // --- Article Overlay ---
 const articleOverlay = document.getElementById('article-overlay');
 if (articleOverlay) {
+  const overlayPanel = articleOverlay.querySelector('.article-overlay-panel');
   const overlayImg = document.getElementById('article-overlay-img');
   const overlayBody = document.getElementById('article-overlay-body');
   const overlayClose = articleOverlay.querySelector('.close-btn');
   const overlayScroll = articleOverlay.querySelector('.article-overlay-scroll');
+  const overlayPrev = document.getElementById('article-img-prev');
+  const overlayNext = document.getElementById('article-img-next');
+  const overlayDots = document.getElementById('article-img-dots');
+  const overlayPhotoBar = document.getElementById('article-photo-bar');
+  const overlayPhotoCaption = document.getElementById('article-photo-caption');
+  const overlayPhotoLink = document.getElementById('article-photo-link');
+  let overlayImages = [];
+  let overlayPhotos = null;
+  let overlayImgIndex = 0;
+
+  function updateOverlayPhotoBar(index) {
+    if (!overlayPhotos) return;
+    const photo = overlayPhotos[index];
+    overlayPhotoCaption.textContent = photo.caption || '';
+    if (photo.link) {
+      overlayPhotoLink.href = photo.link;
+      overlayPhotoLink.style.visibility = '';
+    } else {
+      overlayPhotoLink.style.visibility = 'hidden';
+    }
+  }
+
+  function goToOverlayImage(n) {
+    overlayImgIndex = (n + overlayImages.length) % overlayImages.length;
+    overlayImg.src = overlayImages[overlayImgIndex];
+    overlayDots.querySelectorAll('.article-img-dot').forEach((d, i) => d.classList.toggle('active', i === overlayImgIndex));
+    if (overlayPhotos) updateOverlayPhotoBar(overlayImgIndex);
+  }
+
+  overlayPrev.addEventListener('click', () => goToOverlayImage(overlayImgIndex - 1));
+  overlayNext.addEventListener('click', () => goToOverlayImage(overlayImgIndex + 1));
 
   function openArticleOverlay(card) {
-    const img = card.querySelector('.project-img-wrap img');
+    const imgWrap = card.querySelector('.project-img-wrap');
+    const img = imgWrap.querySelector('img');
+    if (imgWrap.dataset.images) {
+      overlayImages = JSON.parse(imgWrap.dataset.images);
+      overlayPhotos = null;
+      overlayPhotoBar.style.display = 'none';
+    } else if (imgWrap.dataset.photos) {
+      overlayPhotos = JSON.parse(imgWrap.dataset.photos);
+      overlayImages = overlayPhotos.map(p => p.src);
+      overlayPhotoBar.style.display = '';
+      updateOverlayPhotoBar(0);
+    } else {
+      overlayImages = [img.src];
+      overlayPhotos = null;
+      overlayPhotoBar.style.display = 'none';
+    }
+    overlayImgIndex = 0;
+    overlayImg.src = overlayImages[0];
+    overlayPanel.classList.toggle('featured', card.classList.contains('featured'));
+
+    const hasMultiple = overlayImages.length > 1;
+    overlayPrev.style.display = hasMultiple ? '' : 'none';
+    overlayNext.style.display = hasMultiple ? '' : 'none';
+    overlayDots.innerHTML = hasMultiple
+      ? overlayImages.map((_, i) => `<span class="article-img-dot${i === 0 ? ' active' : ''}"></span>`).join('')
+      : '';
+
     const title = card.querySelector('.project-body h3').textContent;
+    const desc = card.querySelector('.project-body p');
     const articleContent = card.querySelector('.card-article-body');
     const tags = card.querySelector('.project-tags');
 
-    overlayImg.src = img.src;
     let html = '<h1 class="article-overlay-title">' + title + '</h1>';
+    if (desc) html += '<p class="article-overlay-desc">' + desc.textContent + '</p>';
     if (tags) html += tags.outerHTML;
     if (articleContent) html += articleContent.innerHTML;
     overlayBody.innerHTML = html;
 
     overlayScroll.scrollTop = 0;
     articleOverlay.style.display = 'block';
-    document.body.style.overflow = 'hidden';
+    articleOverlay.offsetHeight; // force reflow
+    articleOverlay.classList.add('visible');
+    document.documentElement.style.overflow = 'hidden';
   }
 
   function closeArticleOverlay() {
-    articleOverlay.style.display = 'none';
-    document.body.style.overflow = '';
+    articleOverlay.classList.remove('visible');
+    articleOverlay.addEventListener('transitionend', () => {
+      articleOverlay.style.display = 'none';
+      document.documentElement.style.overflow = '';
+    }, { once: true });
   }
 
   document.querySelectorAll('.project-card[data-article]').forEach(card => {
@@ -270,7 +334,7 @@ if (articleOverlay) {
   });
 
   document.addEventListener('keydown', (e) => {
-    if (articleOverlay.style.display === 'block' && e.key === 'Escape') closeArticleOverlay();
+    if (articleOverlay.classList.contains('visible') && e.key === 'Escape') closeArticleOverlay();
   });
 }
 

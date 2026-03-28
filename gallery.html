@@ -1,63 +1,140 @@
 <!-- index.html -->
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zane Morris</title>
-  <link rel="stylesheet" href="styles.css">
-  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zane Morris</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      if (localStorage.getItem("theme") === "dark")
+        document.documentElement.setAttribute("data-theme", "dark");
+    </script>
+  </head>
+  <body>
+    <header class="topbar">
+      <button id="theme-toggle" aria-label="Toggle theme">☀</button>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="gallery.html">Gallery</a>
+      </nav>
+    </header>
 
-<header class="topbar">
-  <button id="theme-toggle" aria-label="Toggle theme">☀</button>
-  <nav class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="projects.html">Projects</a>
-    <a href="gallery.html">Gallery</a>
-  </nav>
-</header>
+    <section class="hero">
+      <h1>Photography Gallery</h1>
+      <p class="subtitle">A collection of miscellaneous photos</p>
+      <hr class="hero-divider" />
+    </section>
 
-<section class="hero">
-  <h1>Photography Gallery</h1>
-  <p class="subtitle">A collection of miscellaneous photos</p>
-  <hr class="hero-divider">
-</section>
+    <section class="gallery">
+      <div class="gallery-item">
+        <img
+          src="images/gallery/photo01.webp"
+          class="portrait"
+          data-caption="Sky Tower - Nikon F2, Amber 800T"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="images/gallery/photo03.webp"
+          class="portrait"
+          data-caption="Tuff Crater Bench - Canon AE-1 Program, Ultramax 400"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="images/gallery/photo02.webp"
+          class="landscape"
+          data-caption="Sunset at Takapuna - Canon AE-1 Program, Ultramax 400"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="images/gallery/photo09.webp"
+          class="landscape"
+          data-caption="Victoria Street W - Nikon F2, Gold 200"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="images/gallery/photo10.webp"
+          class="landscape"
+          data-caption="Symonds Street - Canon AE-1 Program, Colourplus 200"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="images/gallery/photo05.webp"
+          class="landscape"
+          data-caption="Lorne Street - Nikon F2, Gold 100 @ ISO25"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="images/gallery/photo06.webp"
+          class="landscape"
+          data-caption="Whatever this plant is - Nikon F2AS, Gold 200"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="images/gallery/photo04.webp"
+          class="portrait"
+          data-caption="Omanawanui - Nikon F2AS, Portra 800"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="images/gallery/photo07.webp"
+          class="portrait"
+          data-caption="Pacifica - Nikon F2AS, Ilford HP5 Plus"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="images/gallery/photo08.webp"
+          class="portrait"
+          data-caption="Logging - Nikon F2, Portra 160"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="images/gallery/photo11.webp"
+          class="portrait"
+          data-caption="Wellesley Street W - Canon AE-1 Program, Colourplus 200"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="images/gallery/photo12.webp"
+          class="landscape"
+          data-caption="Gone Fishing - Nikon F2, Gold 200"
+        />
+      </div>
+      <div class="gallery-item">
+        <img
+          src="images/gallery/photo13.webp"
+          class="landscape"
+          data-caption="Mezze - Nikon F2, Gold 200"
+        />
+      </div>
+    </section>
 
-<section class="gallery">
-  <div class="gallery-item"><img src="images/gallery/photo01.webp" class="portrait" data-caption="Sky Tower - Nikon F2, Amber 800T" /></div>
-  <div class="gallery-item"><img src="images/gallery/photo03.webp" class="portrait" data-caption="Tuff Crater Bench - Canon AE-1 Program, Ultramax 400" /></div>
-  <div class="gallery-item"><img src="images/gallery/photo02.webp" class="landscape" data-caption="Sunset at Takapuna - Canon AE-1 Program, Ultramax 400" /></div>
-  <div class="gallery-item"><img src="images/gallery/photo09.webp" class="landscape" data-caption="Victoria Street W - Nikon F2, Gold 200" /></div>
-  <div class="gallery-item"><img src="images/gallery/photo10.webp" class="landscape" data-caption="Symonds Street - Canon AE-1 Program, Colourplus 200" /></div>
-  <div class="gallery-item"><img src="images/gallery/photo05.webp" class="landscape" data-caption="Lorne Street - Nikon F2, Gold 100 @ ISO25" /></div>
-  <div class="gallery-item"><img src="images/gallery/photo06.webp" class="landscape" data-caption="Whatever this plant is - Nikon F2AS, Gold 200" /></div>
-  <div class="gallery-item"><img src="images/gallery/photo04.webp" class="portrait" data-caption="Omanawanui - Nikon F2AS, Portra 800" /></div>
-  <div class="gallery-item"><img src="images/gallery/photo07.webp" class="portrait" data-caption="Pacifica - Nikon F2AS, Ilford HP5 Plus" /></div>
-  <div class="gallery-item"><img src="images/gallery/photo08.webp" class="portrait" data-caption="Logging - Nikon F2, Portra 160" /></div>
-  <div class="gallery-item"><img src="images/gallery/photo11.webp" class="portrait" data-caption="Wellesley Street W - Canon AE-1 Program, Colourplus 200" /></div>
-  <div class="gallery-item"><img src="images/gallery/photo12.webp" class="landscape" data-caption="Gone Fishing - Nikon F2, Gold 200" /></div>
-  <div class="gallery-item"><img src="images/gallery/photo13.webp" class="landscape" data-caption="Mezze - Nikon F2, Gold 200" /></div>
-</section>
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+      <div class="nav-zone left-zone"></div>
+      <span class="nav left">‹</span>
+      <div class="lightbox-img-wrap">
+        <img id="lightbox-img" />
+        <div id="caption"></div>
+      </div>
+      <span class="nav right">›</span>
+      <div class="nav-zone right-zone"></div>
+      <span class="close-btn">✕</span>
+    </div>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-  <div class="nav-zone left-zone"></div>
-  <span class="nav left">‹</span>
-  <div class="lightbox-img-wrap">
-    <img id="lightbox-img" />
-    <div id="caption"></div>
-  </div>
-  <span class="nav right">›</span>
-  <div class="nav-zone right-zone"></div>
-  <span class="close-btn">✕</span>
-</div>
+    <footer class="footer">© 2026 by Zane Morris.</footer>
 
-<footer class="footer">
-  © 2026 by Zane Morris.
-</footer>
-
-<script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
-

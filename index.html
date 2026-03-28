@@ -1,13 +1,60 @@
-<!DOCTYPE html>
+<!-- index.html -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Zane Morris</title>
-    <script>if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      if (localStorage.getItem("theme") === "dark")
+        document.documentElement.setAttribute("data-theme", "dark");
+    </script>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/app/main.tsx"></script>
+    <header class="topbar">
+      <button id="theme-toggle" aria-label="Toggle theme">☀</button>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="gallery.html">Gallery</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1>Zane Morris</h1>
+      <p class="subtitle">Mechanical Engineer</p>
+      <hr class="hero-divider" />
+      <div class="hero-bio">
+        <p>
+          Hi, I'm Zane. A Mechanical Engineering graduate from the University of
+          Auckland, graduating May 2026. I'm outgoing and highly motivated, I
+          thrive across a range of environments and hold myself to a high
+          standard in everything I take on. I'm comfortable working under
+          pressure, managing competing priorities, and staying focused in
+          fast-paced settings.
+        </p>
+      </div>
+      <div class="hero-profile">
+        <img
+          src="images/home/index01.jpg"
+          alt="Zane Morris"
+          class="profile-img"
+        />
+        <div class="profile-btns">
+          <a
+            href="https://www.linkedin.com/in/z-morris"
+            class="btn"
+            target="_blank"
+            rel="noopener"
+            >LinkedIn</a
+          >
+          <a href="ZaneResume.pdf" class="btn">Download CV</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">© 2026 by Zane Morris.</footer>
+
+    <script src="script.js"></script>
   </body>
 </html>
