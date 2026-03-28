@@ -795,6 +795,133 @@ body {
   }
 }
 
+/* --- Hamburger Button --- */
+.hamburger {
+  display: none;
+  position: absolute;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  overflow: visible;
+}
+
+.hamburger span {
+  position: absolute;
+  left: 8px;
+  width: 20px;
+  height: 2px;
+  background: var(--toggle-color);
+  transition:
+    transform 0.25s ease,
+    opacity 0.2s ease,
+    background 0.1s ease;
+}
+
+.hamburger span:nth-child(1) { top: 10px; }
+.hamburger span:nth-child(2) { top: 17px; }
+.hamburger span:nth-child(3) { top: 24px; }
+
+.hamburger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* --- Mobile Menu Overlay --- */
+.mobile-menu {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 0.2s ease,
+    background 0.3s ease;
+}
+
+.mobile-menu.open {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.mobile-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-nav a {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  letter-spacing: 0.05em;
+  color: var(--nav-link);
+  text-decoration: none;
+  border-top: 1px solid var(--topbar-border);
+  transition: color 0.1s ease;
+}
+
+.mobile-nav a:last-child {
+  border-bottom: 1px solid var(--topbar-border);
+}
+
+.mobile-nav a:hover {
+  color: var(--subtitle);
+}
+
+.mobile-menu-footer {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-theme-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--toggle-color);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition:
+    color 0.1s ease,
+    opacity 0.1s ease;
+}
+
+.mobile-theme-btn:hover {
+  opacity: 1;
+  color: var(--subtitle);
+}
+
+@media (max-width: 375px) {
+  #theme-toggle,
+  .nav-links {
+    display: none;
+  }
+  .hamburger {
+    display: flex;
+  }
+}
+
 @media (max-width: 460px) {
   .hero-profile {
     grid-template-columns: 1fr;
