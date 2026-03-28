@@ -288,8 +288,15 @@ document.querySelectorAll('.project-card[data-article]').forEach(card => {
             card.style.transition  = '';
             if (activeCard === card) { activeCard = null; activeClose = null; }
             requestAnimationFrame(() => requestAnimationFrame(() => {
-              articleClosing = false;
               lastScroll = window.scrollY;
+              if (!onDone) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const done = () => { articleClosing = false; lastScroll = window.scrollY; };
+                const t = setTimeout(done, 800);
+                window.addEventListener('scrollend', () => { clearTimeout(t); done(); }, { once: true });
+              } else {
+                articleClosing = false;
+              }
             }));
             if (onDone) onDone();
           }
@@ -303,8 +310,15 @@ document.querySelectorAll('.project-card[data-article]').forEach(card => {
         if (imgWrap)  { imgWrap.style.transition = ''; imgWrap.style.aspectRatio = ''; }
         if (activeCard === card) { activeCard = null; activeClose = null; }
         requestAnimationFrame(() => requestAnimationFrame(() => {
-          articleClosing = false;
           lastScroll = window.scrollY;
+          if (!onDone) {
+            card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const done = () => { articleClosing = false; lastScroll = window.scrollY; };
+            const t = setTimeout(done, 800);
+            window.addEventListener('scrollend', () => { clearTimeout(t); done(); }, { once: true });
+          } else {
+            articleClosing = false;
+          }
         }));
         if (onDone) onDone();
       }
