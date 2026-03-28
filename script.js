@@ -7,6 +7,16 @@ if (lightbox) {
   const closeBtn = document.querySelector('.close-btn');
   let currentIndex = 0;
 
+  function setCaption(el, img) {
+    const title = img.dataset.title || '';
+    const sub = img.dataset.caption || '';
+    if (title) {
+      el.innerHTML = `<span class="caption-title">${title}</span>${sub ? `<span class="caption-sub">${sub}</span>` : ''}`;
+    } else {
+      el.innerHTML = sub ? `<span class="caption-sub">${sub}</span>` : '';
+    }
+  }
+
   const leftZone  = document.querySelector('.left-zone');
   const rightZone = document.querySelector('.right-zone');
   const leftArrow  = document.querySelector('.nav.left');
@@ -39,7 +49,7 @@ if (lightbox) {
   function openLightbox(index) {
     currentIndex = index;
     lightboxImg.src = images[currentIndex].src;
-    caption.textContent = images[currentIndex].dataset.caption || '';
+    setCaption(caption, images[currentIndex]);
     lightbox.style.display = 'block';
     document.documentElement.style.overflow = 'hidden';
     requestAnimationFrame(updateNavZones);
@@ -55,7 +65,7 @@ if (lightbox) {
     lightboxImg.addEventListener('transitionend', () => {
       currentIndex = newIndex;
       lightboxImg.src = images[currentIndex].src;
-      caption.textContent = images[currentIndex].dataset.caption || '';
+      setCaption(caption, images[currentIndex]);
       if (lightboxImg.complete) {
         lightboxImg.style.opacity = 1;
         requestAnimationFrame(updateNavZones);
