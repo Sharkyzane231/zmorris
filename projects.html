@@ -38,7 +38,7 @@
           />
         </div>
         <div class="project-body">
-          <h3>Underwater Transducer</h3>
+          <h3>Underwater Transducer <span class="featured-star">★</span></h3>
           <p>
             Designed and built a high-efficiency underwater transducer,
             optimised for acoustic performance and minimal energy loss in
@@ -427,30 +427,16 @@
 
     <!-- Article Overlay -->
     <div class="article-overlay" id="article-overlay">
-      <div class="article-overlay-scroll">
+      <div class="article-overlay-scroll" tabindex="-1">
         <div class="article-overlay-panel">
-          <span class="close-btn">✕</span>
           <div class="article-overlay-img-wrap">
-            <img class="article-overlay-img" id="article-overlay-img" />
-            <button
-              class="article-img-nav article-img-prev"
-              id="article-img-prev"
-            >
-              &#8249;
-            </button>
-            <button
-              class="article-img-nav article-img-next"
-              id="article-img-next"
-            >
-              &#8250;
-            </button>
-            <div class="article-img-dots" id="article-img-dots"></div>
-          </div>
-          <div
-            class="photo-img-bar"
-            id="article-photo-bar"
-            style="display: none"
-          >
+            <div class="article-overlay-img-slider" id="article-overlay-img-slider">
+              <img class="article-overlay-img" id="article-overlay-img" />
+              <div
+                class="photo-img-bar"
+                id="article-photo-bar"
+                style="display: none"
+              >
             <span id="article-photo-caption"></span>
             <a
               class="photo-img-bar-link"
@@ -482,8 +468,24 @@
                 />
               </svg>
             </a>
+              </div>
+            </div>
+            <button
+              class="article-img-nav article-img-prev"
+              id="article-img-prev"
+            >
+              &#8249;
+            </button>
+            <button
+              class="article-img-nav article-img-next"
+              id="article-img-next"
+            >
+              &#8250;
+            </button>
+            <div class="article-img-dots" id="article-img-dots"></div>
           </div>
           <div class="article-overlay-body" id="article-overlay-body"></div>
+          <button class="article-close-footer" id="article-close-footer">Close</button>
         </div>
       </div>
     </div>
