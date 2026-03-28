@@ -226,198 +226,53 @@ if (photoImgWrap) {
   updateBar(0);
 }
 
-// --- Article Inline Expand ---
-let activeCard    = null;
-let activeClose   = null;
-let articleClosing = false;
+// --- Article Overlay ---
+const articleOverlay = document.getElementById('article-overlay');
+if (articleOverlay) {
+  const overlayImg = document.getElementById('article-overlay-img');
+  const overlayBody = document.getElementById('article-overlay-body');
+  const overlayClose = articleOverlay.querySelector('.close-btn');
+  const overlayScroll = articleOverlay.querySelector('.article-overlay-scroll');
 
-document.querySelectorAll('.project-card[data-article]').forEach(card => {
-  const article     = card.querySelector('.card-article');
-  const articleBody = card.querySelector('.card-article-body');
-  const bottomBar   = card.querySelector('.article-bar-bottom');
+  function openArticleOverlay(card) {
+    const img = card.querySelector('.project-img-wrap img');
+    const title = card.querySelector('.project-body h3').textContent;
+    const articleContent = card.querySelector('.card-article-body');
+    const tags = card.querySelector('.project-tags');
 
-  function closeArticle(onDone = null) {
-    if (card.classList.contains('article-closing')) return;
-    articleClosing = true;
-    const fullRect    = card.getBoundingClientRect();
-    const naturalRect = card._naturalRect;
-    const photoBar = card.querySelector('.photo-img-bar');
-    const imgWrap  = card.querySelector('.project-img-wrap');
-    if (imgWrap) {
-      imgWrap.style.transition = 'background 0.3s ease, aspect-ratio 0.55s ease 0.25s';
-      imgWrap.style.aspectRatio = '16 / 9';
-    }
-    article.style.height = article.scrollHeight + 'px';
-    article.offsetHeight;
-    card.classList.add('article-closing');
-    article.style.transition = 'opacity 0.3s ease, height 0.55s cubic-bezier(0.4, 0, 0.2, 1) 0.25s';
-    if (photoBar) {
-      photoBar.style.transition = 'max-height 0.55s ease 0.25s, padding 0.55s ease 0.25s';
-      photoBar.style.maxHeight = '0';
-      photoBar.style.padding = '0 14px';
-    }
-    article.style.height = '0px';
-    article.style.opacity = '0';
+    overlayImg.src = img.src;
+    let html = '<h1 class="article-overlay-title">' + title + '</h1>';
+    if (tags) html += tags.outerHTML;
+    if (articleContent) html += articleContent.innerHTML;
+    overlayBody.innerHTML = html;
 
-    function onClose(e) {
-      if (e.propertyName !== 'height') return;
-      article.removeEventListener('transitionend', onClose);
-      article.style.height = '';
-      article.style.opacity = '';
-      article.style.transition = '';
-
-      if (naturalRect && naturalRect.width < fullRect.width * 0.95) {
-        // Animate card width back to its natural column size
-        card.style.justifySelf = 'start';
-        card.style.width = fullRect.width + 'px';
-        card.style.marginLeft = '0px';
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          card.style.transition = 'width 0.35s ease, margin-left 0.35s ease';
-          card.style.width      = naturalRect.width + 'px';
-          card.style.marginLeft = (naturalRect.left - fullRect.left) + 'px';
-          let fallback;
-          function cleanup() {
-            clearTimeout(fallback);
-            card.removeEventListener('transitionend', onWidth);
-            card.classList.remove('article-open', 'article-closing');
-            if (photoBar) { photoBar.style.transition = ''; photoBar.style.maxHeight = ''; photoBar.style.padding = ''; }
-            if (imgWrap)  { imgWrap.style.transition = ''; imgWrap.style.aspectRatio = ''; }
-            card.style.justifySelf = '';
-            card.style.width       = '';
-            card.style.marginLeft  = '';
-            card.style.transition  = '';
-            if (activeCard === card) { activeCard = null; activeClose = null; }
-            requestAnimationFrame(() => requestAnimationFrame(() => {
-              lastScroll = window.scrollY;
-              if (!onDone) {
-                card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                const done = () => { articleClosing = false; lastScroll = window.scrollY; };
-                const t = setTimeout(done, 800);
-                window.addEventListener('scrollend', () => { clearTimeout(t); done(); }, { once: true });
-              } else {
-                articleClosing = false;
-              }
-            }));
-            if (onDone) onDone();
-          }
-          function onWidth(e) { if (e.propertyName !== 'width') return; cleanup(); }
-          card.addEventListener('transitionend', onWidth);
-          fallback = setTimeout(cleanup, 500);
-        }));
-      } else {
-        card.classList.remove('article-open', 'article-closing');
-        if (photoBar) { photoBar.style.transition = ''; photoBar.style.maxHeight = ''; photoBar.style.padding = ''; }
-        if (imgWrap)  { imgWrap.style.transition = ''; imgWrap.style.aspectRatio = ''; }
-        if (activeCard === card) { activeCard = null; activeClose = null; }
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          lastScroll = window.scrollY;
-          if (!onDone) {
-            card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            const done = () => { articleClosing = false; lastScroll = window.scrollY; };
-            const t = setTimeout(done, 800);
-            window.addEventListener('scrollend', () => { clearTimeout(t); done(); }, { once: true });
-          } else {
-            articleClosing = false;
-          }
-        }));
-        if (onDone) onDone();
-      }
-    }
-    article.addEventListener('transitionend', onClose);
+    overlayScroll.scrollTop = 0;
+    articleOverlay.style.display = 'block';
+    document.body.style.overflow = 'hidden';
   }
 
-  function openArticle() {
-    card.style.animation = 'none';
-    const photoBar = card.querySelector('.photo-img-bar');
-    const imgWrap  = card.querySelector('.project-img-wrap');
-    if (imgWrap)  { imgWrap.style.transition = ''; imgWrap.style.aspectRatio = ''; }
-    if (photoBar) { photoBar.style.transition = ''; photoBar.style.maxHeight = ''; photoBar.style.padding = ''; }
-    const hadPrevious = activeCard && activeCard !== card;
-    if (hadPrevious) {
-      activeClose(() => {
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }));
-      });
-    }
-    activeCard  = card;
-    activeClose = closeArticle;
-
-    const naturalRect = card.getBoundingClientRect();
-    card.classList.add('article-open');
-    const fullRect = card.getBoundingClientRect();
-    card._naturalRect = naturalRect;
-
-    if (naturalRect.width < fullRect.width * 0.95) {
-      // Freeze card at natural column width, then animate to full width
-      card.style.justifySelf = 'start';
-      card.style.width       = naturalRect.width + 'px';
-      card.style.marginLeft  = (naturalRect.left - fullRect.left) + 'px';
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        card.style.transition = 'width 0.4s ease, margin-left 0.4s ease';
-        card.style.width      = fullRect.width + 'px';
-        card.style.marginLeft = '0px';
-        card.addEventListener('transitionend', function onWidth(e) {
-          if (e.propertyName !== 'width') return;
-          card.removeEventListener('transitionend', onWidth);
-          card.style.justifySelf = '';
-          card.style.width       = '';
-          card.style.marginLeft  = '';
-          card.style.transition  = '';
-          // Start height after width finishes
-          article.style.height  = article.scrollHeight + 'px';
-          article.style.opacity = '1';
-          article.addEventListener('transitionend', function onHeight(e) {
-            if (e.propertyName !== 'height') return;
-            article.removeEventListener('transitionend', onHeight);
-            article.style.height = 'auto';
-          });
-          if (!hadPrevious) {
-            requestAnimationFrame(() => requestAnimationFrame(() => {
-              card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }));
-          }
-        });
-      }));
-    } else {
-      article.style.height  = article.scrollHeight + 'px';
-      article.style.opacity = '1';
-      article.addEventListener('transitionend', function onOpen(e) {
-        if (e.propertyName !== 'height') return;
-        article.removeEventListener('transitionend', onOpen);
-        article.style.height = 'auto';
-      });
-      if (!hadPrevious) {
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }));
-      }
-    }
+  function closeArticleOverlay() {
+    articleOverlay.style.display = 'none';
+    document.body.style.overflow = '';
   }
 
-  card.addEventListener('click', (ev) => {
-    if (card.classList.contains('article-closing')) return;
-    if (!card.classList.contains('article-open')) {
-      openArticle();
-    } else if (!articleBody.contains(ev.target)) {
-      if (activeCard === card) { activeCard = null; activeClose = null; }
-      closeArticle();
-    }
+  document.querySelectorAll('.project-card[data-article]').forEach(card => {
+    card.addEventListener('click', () => openArticleOverlay(card));
   });
 
-  if (bottomBar) bottomBar.addEventListener('click', (ev) => {
-    ev.stopPropagation();
-    if (activeCard === card) { activeCard = null; activeClose = null; }
-    closeArticle();
+  overlayClose.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeArticleOverlay();
   });
 
-  document.addEventListener('click', (ev) => {
-    if (card.classList.contains('article-open') && !card.contains(ev.target)) {
-      if (activeCard === card) { activeCard = null; activeClose = null; }
-      closeArticle();
-    }
+  articleOverlay.addEventListener('click', (e) => {
+    if (!e.target.closest('.article-overlay-panel')) closeArticleOverlay();
   });
-});
+
+  document.addEventListener('keydown', (e) => {
+    if (articleOverlay.style.display === 'block' && e.key === 'Escape') closeArticleOverlay();
+  });
+}
 
 
 // --- Topbar hide on scroll ---
@@ -425,7 +280,6 @@ let lastScroll = 0;
 const topbar = document.querySelector('.topbar');
 window.addEventListener('scroll', () => {
   const current = window.scrollY;
-  if (articleClosing) { lastScroll = current; return; }
   if (current > lastScroll && current > 80) {
     topbar.classList.add('hidden');
   } else {
