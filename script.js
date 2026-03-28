@@ -368,9 +368,9 @@ if (articleOverlay) {
     if (articleContent) html += articleContent.innerHTML;
     overlayBody.innerHTML = html;
 
-    overlayScroll.scrollTop = 0;
     articleOverlay.style.display = 'block';
     articleOverlay.offsetHeight; // force reflow
+    overlayScroll.scrollTop = 0;
     articleOverlay.classList.add('visible');
     document.documentElement.style.overflow = 'hidden';
     overlayScroll.focus({ preventScroll: true });

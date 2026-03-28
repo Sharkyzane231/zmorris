@@ -75,7 +75,7 @@
 
 @media (hover: hover) {
   html {
-    scrollbar-gutter: stable;
+    scrollbar-gutter: stable both-edges;
   }
 }
 
@@ -103,8 +103,8 @@ body {
   right: 0;
   z-index: 100;
   display: flex;
-  justify-content: center;
   align-items: center;
+  padding: 0 20px;
   height: 60px;
   background: var(--topbar-bg);
   border-bottom: 1px solid var(--topbar-border);
@@ -121,6 +121,9 @@ body {
 }
 
 .nav-links {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   gap: clamp(16px, 4vw, 40px);
 }
@@ -139,8 +142,6 @@ body {
 
 /* --- Theme Toggle --- */
 #theme-toggle {
-  position: absolute;
-  left: 20px;
   background: none;
   border: none;
   cursor: pointer;
@@ -800,8 +801,7 @@ body {
 /* --- Hamburger Button --- */
 .hamburger {
   display: none;
-  position: absolute;
-  right: 20px;
+  margin-left: auto;
   background: none;
   border: none;
   cursor: pointer;
