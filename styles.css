@@ -465,6 +465,11 @@ body {
   border-color: var(--tag-university-border);
 }
 
+.tag-award {
+  color: #b8922a;
+  border-color: #c9a84c;
+}
+
 /* --- Article Inline Expand --- */
 .project-card[data-article] {
   cursor: pointer;
@@ -669,6 +674,29 @@ body {
   flex-shrink: 0;
   margin-left: auto;
   padding-left: 8px;
+  position: relative;
+  cursor: default;
+}
+
+.featured-star::after {
+  content: "Featured";
+  position: absolute;
+  bottom: calc(100% + 6px);
+  right: 0;
+  background: #c9a84c;
+  color: #fff;
+  font-size: 10px;
+  font-style: normal;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.featured-star:hover::after {
+  opacity: 1;
 }
 
 .project-body h3 .featured-star {
@@ -796,6 +824,7 @@ body {
 
   .gallery-item {
     margin-bottom: 12px;
+    break-before: auto !important;
   }
 }
 
