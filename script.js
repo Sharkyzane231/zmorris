@@ -58,6 +58,7 @@ if (lightbox) {
   function closeLightbox() {
     lightbox.style.display = 'none';
     document.documentElement.style.overflow = '';
+    navigating = false;
   }
 
   let navigating = false;
