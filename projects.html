@@ -58,7 +58,10 @@
           />
         </div>
         <div class="project-body">
-          <h3>Underwater Transducer <span class="featured-star">★</span></h3>
+          <h3>
+            Part IV Project: High Efficiency Underwater Transducer
+            <span class="featured-star">★</span>
+          </h3>
           <p>
             Designed and built a high-efficiency underwater transducer,
             optimised for acoustic performance and minimal energy loss in
@@ -97,11 +100,11 @@
               speakers suffer significant energy loss when submerged. The
               housing is sealed at both ends with 3mm laser-cut acrylic panels
               compressed by six M8x30mm stainless steel bolts against a rubber
-              C-channel gasket, with silicone applied at cable pass-throughs
-              and panel interfaces. The diaphragm is oriented externally so
-              water pressure acts to enhance the seal. Electrical connections
-              are routed through a rear cable gland, allowing rear panel removal
-              for maintenance without disturbing the wiring. The modular design
+              C-channel gasket, with silicone applied at cable pass-throughs and
+              panel interfaces. The diaphragm is oriented externally so water
+              pressure acts to enhance the seal. Electrical connections are
+              routed through a rear cable gland, allowing rear panel removal for
+              maintenance without disturbing the wiring. The modular design
               allows component replacement without destructive disassembly.
             </p>
             <p>
@@ -134,17 +137,17 @@
               better at higher frequencies due to their lower density and higher
               stiffness-to-weight ratio, while steel performed better at lower
               frequencies due to its greater mass. The enlarged acrylic
-              outperformed the standard acrylic by approximately 15 dB at 9
-              kHz, consistent with the increased radiating area improving
-              acoustic impedance matching with water. The aluminium prototype
-              failed during testing from water ingress through a compromised
-              seal, recording a post-failure peak of 64.8 dB.
+              outperformed the standard acrylic by approximately 15 dB at 9 kHz,
+              consistent with the increased radiating area improving acoustic
+              impedance matching with water. The aluminium prototype failed
+              during testing from water ingress through a compromised seal,
+              recording a post-failure peak of 64.8 dB.
             </p>
             <p>
               Power consumption across functional prototypes ranged from 0.126
-              to 0.47 mW, closely matching the theoretical requirement of
-              0.17 mW. None of the prototypes reached the 150 dB target, though
-              the steel and enlarged acrylic results demonstrate potential for
+              to 0.47 mW, closely matching the theoretical requirement of 0.17
+              mW. None of the prototypes reached the 150 dB target, though the
+              steel and enlarged acrylic results demonstrate potential for
               further performance gains through increased drive power. Each unit
               cost approximately NZD 18.20 to fabricate, a forty to fiftyfold
               reduction compared to commercial alternatives.
@@ -161,7 +164,7 @@
           />
         </div>
         <div class="project-body">
-          <h3>Structural Bracket</h3>
+          <h3>FEA-Optimised Structural Bracket</h3>
           <p>
             CAD-designed bracket with FEA optimisation in ANSYS. Engineered to
             withstand 3 kN upward and 4 kN downward loading while minimising
@@ -235,8 +238,8 @@
               tetrahedral meshes. The bracket yields at pinhole D at
               approximately 5500N under compressive load, verified by hand
               calculations for buckling. Machining uses a single 12mm tool
-              across roughing and finishing operations, the largest tool the
-              CAM software would allow given the 18mm cable hole diameter.
+              across roughing and finishing operations, the largest tool the CAM
+              software would allow given the 18mm cable hole diameter.
             </p>
           </div>
         </div>
@@ -250,7 +253,7 @@
           />
         </div>
         <div class="project-body">
-          <h3>Ball Transport Box</h3>
+          <h3>Compact Ball Transport System</h3>
           <p>
             3D printed mechanism designed to autonomously move a ball from one
             end of an enclosure to the other, exploring passive mechanical
@@ -268,8 +271,8 @@
           <div class="card-article-body">
             <h2>Overview</h2>
             <p>
-              A mechanism designed to move a 9.5mm steel ball from one side of
-              a 100x100x100mm acrylic box to the other in exactly 5 seconds,
+              A mechanism designed to move a 9.5mm steel ball from one side of a
+              100x100x100mm acrylic box to the other in exactly 5 seconds,
               driven by a 60 RPM input shaft. The entry and exit holes sit at
               the same height, requiring both a way to initiate ball movement
               and a timed hold at the exit.
@@ -279,8 +282,8 @@
               Concept designs were developed independently by each team member
               and evaluated through a morphological matrix and Pugh's analysis,
               arriving at a declined ramp feeding into an Archimedes screw. The
-              initial layout was sketched in OpenBrush, a VR application,
-              before moving to CAD.
+              initial layout was sketched in OpenBrush, a VR application, before
+              moving to CAD.
             </p>
             <p>
               The ramp sits at 5 degrees, delivering the ball to the screw in
@@ -293,30 +296,28 @@
               The screw is suspended above a half-pipe support structure and
               driven through a chain of bevel and spur gears from the input
               shaft. Gears were generated through Autodesk's Design Accelerator
-              and joined by solid extrusions to maintain a 1:1 ratio
-              throughout. A twist-and-lock coupling holds the driving bevel
-              gear to the wall, locking anticlockwise to prevent loosening
-              under load.
+              and joined by solid extrusions to maintain a 1:1 ratio throughout.
+              A twist-and-lock coupling holds the driving bevel gear to the
+              wall, locking anticlockwise to prevent loosening under load.
             </p>
             <h2>Simulation and Results</h2>
             <p>
               Dynamic simulation in Autodesk Inventor placed the ball at the
-              exit at 4.71 seconds. Imposed motion replaced 3D gear contacts
-              to keep the simulation stable, with 3D contacts applied only to
-              the ramp, screw and half-pipe. The crank slider was not included
-              in the simulation.
+              exit at 4.71 seconds. Imposed motion replaced 3D gear contacts to
+              keep the simulation stable, with 3D contacts applied only to the
+              ramp, screw and half-pipe. The crank slider was not included in
+              the simulation.
             </p>
             <h2>Manufacturing</h2>
             <p>
               All parts were 3D printed in PLA on Prusa Slicer machines. Each
               part was modelled 0.2mm undersized to suit the 0.4mm nozzle
-              tolerance, allowing assembly without adhesive. Prints were
-              batched to contain the cost of any failed run, oriented
-              largest-face-down to reduce supports. The half-pipe support went
-              through three iterations, with the final version shelling out the
-              legs to cut print time while maintaining rigidity. The full
-              mechanism cost around $14.66 and took approximately 271 minutes
-              to print.
+              tolerance, allowing assembly without adhesive. Prints were batched
+              to contain the cost of any failed run, oriented largest-face-down
+              to reduce supports. The half-pipe support went through three
+              iterations, with the final version shelling out the legs to cut
+              print time while maintaining rigidity. The full mechanism cost
+              around $14.66 and took approximately 271 minutes to print.
             </p>
           </div>
         </div>
@@ -388,7 +389,9 @@
             </p>
             <h2>Stats</h2>
             <p>
-              7 tools &nbsp;·&nbsp; Print: 6 min &nbsp;·&nbsp; Post-processing: 2.5 hrs &nbsp;·&nbsp; Part volume: 856.676 mm³ &nbsp;·&nbsp; Supports: none
+              7 tools &nbsp;·&nbsp; Print: 6 min &nbsp;·&nbsp; Post-processing:
+              2.5 hrs &nbsp;·&nbsp; Part volume: 856.676 mm³ &nbsp;·&nbsp;
+              Supports: none
             </p>
           </div>
         </div>
@@ -397,43 +400,21 @@
       <div class="project-card">
         <div class="project-img-wrap">
           <img
-            src="images/projects/keyboard enhancements/keyboard01.jpg"
-            alt="Keyboard Enhancements"
+            src="images/projects/lamp/lamp01.webp"
+            alt="Glass Pane Lamp Stand"
           />
         </div>
         <div class="project-body">
-          <h3>Keyboard Enhancements</h3>
+          <h3>Glass Pane Lamp Stand</h3>
           <p>
-            Hotswap modded a keyboard by hand-soldering Mill-Max sockets,
-            allowing switches to be swapped without desoldering. Improved feel
-            and repairability.
+            Designed and 3D printed a custom stand to hold four laminated glass
+            panes as a lamp for a friend. Modelled around the exact pane
+            dimensions for a secure fit.
           </p>
         </div>
         <div class="project-tags">
-          <span class="tag">Soldering</span>
-          <span class="tag">Modding</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-img-wrap">
-          <img
-            src="images/projects/mouse enhancements/mouse1.jpg"
-            alt="Mouse Repairs"
-          />
-        </div>
-        <div class="project-body">
-          <h3>Mouse Repairs &amp; Enhancements</h3>
-          <p>
-            Repaired and upgraded mice by replacing worn microswitches and
-            scroll wheel encoders, restoring click feel and extending hardware
-            life.
-          </p>
-        </div>
-        <div class="project-tags">
-          <span class="tag">Soldering</span>
-          <span class="tag">Modding</span>
-          <span class="tag">Repair</span>
+          <span class="tag">3D Printing</span>
+          <span class="tag">Custom Design</span>
         </div>
       </div>
 
@@ -484,21 +465,43 @@
       <div class="project-card">
         <div class="project-img-wrap">
           <img
-            src="images/projects/lamp/lamp01.webp"
-            alt="Glass Pane Lamp Stand"
+            src="images/projects/mouse enhancements/mouse1.jpg"
+            alt="Mouse Repairs"
           />
         </div>
         <div class="project-body">
-          <h3>Glass Pane Lamp Stand</h3>
+          <h3>Mouse Repairs &amp; Enhancements</h3>
           <p>
-            Designed and 3D printed a custom stand to hold four laminated glass
-            panes as a lamp for a friend. Modelled around the exact pane
-            dimensions for a secure fit.
+            Repaired and upgraded mice by replacing worn microswitches and
+            scroll wheel encoders, restoring click feel and extending hardware
+            life.
           </p>
         </div>
         <div class="project-tags">
-          <span class="tag">3D Printing</span>
-          <span class="tag">Custom Design</span>
+          <span class="tag">Soldering</span>
+          <span class="tag">Modding</span>
+          <span class="tag">Repair</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-img-wrap">
+          <img
+            src="images/projects/keyboard enhancements/keyboard01.jpg"
+            alt="Keyboard Enhancements"
+          />
+        </div>
+        <div class="project-body">
+          <h3>Keyboard Enhancements</h3>
+          <p>
+            Hotswap modded a keyboard by hand-soldering Mill-Max sockets,
+            allowing switches to be swapped without desoldering. Improved feel
+            and repairability.
+          </p>
+        </div>
+        <div class="project-tags">
+          <span class="tag">Soldering</span>
+          <span class="tag">Modding</span>
         </div>
       </div>
 
