@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \":*)",
+      "Bash(sed -i -e 's|transducer01\\\\.jpg|transducer01.webp|g' -e 's|transducer02\\\\.jpg|transducer02.webp|g' -e 's|transducer03\\\\.jpg|transducer03.webp|g' -e 's|transducer04\\\\.png|transducer04.webp|g' -e 's|transducer05\\\\.jpg|transducer05.webp|g' -e 's|bracket01\\\\.png|bracket01.webp|g' -e 's|box01\\\\.jpg|box01.webp|g' -e 's|multitool01\\\\.jpg|multitool01.webp|g' -e 's|multitool02\\\\.jpg|multitool02.webp|g' -e 's|lamp01\\\\.jpg|lamp01.webp|g' -e 's|film01\\\\.jpg|film01.webp|g' -e 's|repair01\\\\.jpg|repair01.webp|g' -e 's|repair02\\\\.jpg|repair02.webp|g' -e 's|repair03\\\\.jpg|repair03.webp|g' -e 's|repair05\\\\.jpg|repair05.webp|g' -e 's|mouse01\\\\.jpg|mouse01.webp|g' -e 's|keyboard01\\\\.jpg|keyboard01.webp|g' -e 's|keyboard01\\\\.JPG|keyboard01.webp|g' -e 's|photograd01\\\\.jpg|photograd01.webp|g' -e 's|photograd05\\\\.jpg|photograd05.webp|g' -e 's|photoevent01\\\\.jpg|photoevent01.webp|g' -e 's|photoevent02\\\\.jpg|photoevent02.webp|g' -e 's|photoevent03\\\\.jpg|photoevent03.webp|g' -e 's|photoevent04\\\\.JPG|photoevent04.webp|g' -e 's|photoevent05\\\\.JPG|photoevent05.webp|g' -e 's|photoevent06\\\\.JPG|photoevent06.webp|g' projects.html)",
+      "Bash(sed -i 's|index01\\\\.jpg|index01.webp|g' index.html)"
+    ]
+  }
+}

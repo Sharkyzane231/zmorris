@@ -607,7 +607,7 @@ body {
 
 .article-img-dots {
   position: absolute;
-  bottom: 16px;
+  bottom: 14px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -633,7 +633,7 @@ body {
   left: 0;
   right: 0;
   max-height: none;
-  overflow: visible;
+  overflow: hidden;
   padding: 10px 14px;
   background: rgba(0, 0, 0, 0.52);
   color: #fff;

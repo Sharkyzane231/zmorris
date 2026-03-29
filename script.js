@@ -188,25 +188,37 @@ function slideElement(el, dir, updateFn) {
 // --- Slide Image Helper ---
 function slideImage(img, newSrc, dir) {
   const wrap = img.parentElement;
-  const outgoing = document.createElement('img');
-  outgoing.src = img.src;
-  outgoing.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;';
-  wrap.appendChild(outgoing);
-  img.src = newSrc;
-  img.style.transition = 'none';
-  img.style.transform = `translateX(${dir > 0 ? '100%' : '-100%'})`;
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    img.style.transition = 'transform 0.28s ease';
-    img.style.transform = 'translateX(0)';
-    outgoing.style.transition = 'transform 0.28s ease';
-    outgoing.style.transform = `translateX(${dir > 0 ? '-100%' : '100%'})`;
-  }));
-  img.addEventListener('transitionend', () => {
-    img.style.transition = '';
-    img.style.transform = '';
-    outgoing.remove();
-  }, { once: true });
+  const preload = new Image();
+  preload.src = newSrc;
+  preload.decode().catch(() => {}).then(() => {
+    const outgoing = document.createElement('img');
+    outgoing.src = img.src;
+    outgoing.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;';
+    wrap.appendChild(outgoing);
+    img.src = newSrc;
+    img.style.transition = 'none';
+    img.style.transform = `translateX(${dir > 0 ? '100%' : '-100%'})`;
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      img.style.transition = 'transform 0.28s ease';
+      img.style.transform = 'translateX(0)';
+      outgoing.style.transition = 'transform 0.28s ease';
+      outgoing.style.transform = `translateX(${dir > 0 ? '-100%' : '100%'})`;
+    }));
+    img.addEventListener('transitionend', () => {
+      img.style.transition = '';
+      img.style.transform = '';
+      outgoing.remove();
+    }, { once: true });
+  });
 }
+
+// --- Preload carousel images ---
+document.querySelectorAll('.project-img-wrap[data-images], .project-img-wrap[data-photos]').forEach(wrap => {
+  const srcs = wrap.dataset.images
+    ? JSON.parse(wrap.dataset.images)
+    : JSON.parse(wrap.dataset.photos).map(p => p.src);
+  srcs.forEach(src => { const i = new Image(); i.src = src; });
+});
 
 // --- Project Image Cycling ---
 document.querySelectorAll('.project-img-wrap[data-images]').forEach(wrap => {
@@ -255,7 +267,6 @@ if (photoImgWrap) {
   const img = photoImgWrap.querySelector('img');
   const bar = photoImgWrap.closest('.project-card').querySelector('.photo-img-bar');
   const barCaption = bar.querySelector('span');
-  const barLink = bar.querySelector('.photo-img-bar-link');
   let current = 0;
 
   if (photos.length > 1) {
@@ -294,12 +305,6 @@ if (photoImgWrap) {
   function updateBar(index) {
     const photo = photos[index];
     barCaption.textContent = photo.caption || '';
-    if (photo.link) {
-      barLink.dataset.href = photo.link;
-      barLink.style.visibility = '';
-    } else {
-      barLink.style.visibility = 'hidden';
-    }
   }
 
   updateBar(0);
@@ -309,8 +314,7 @@ if (photoImgWrap) {
 const articleOverlay = document.getElementById('article-overlay');
 if (articleOverlay) {
   const overlayImg = document.getElementById('article-overlay-img');
-  const overlaySlider = document.getElementById('article-overlay-img-slider');
-  const overlayBody = document.getElementById('article-overlay-body');
+const overlayBody = document.getElementById('article-overlay-body');
   const overlayScroll = articleOverlay.querySelector('.article-overlay-scroll');
   const overlayPrev = document.getElementById('article-img-prev');
   const overlayNext = document.getElementById('article-img-next');
@@ -323,15 +327,10 @@ if (articleOverlay) {
     overlayImgIndex = (n + overlayImages.length) % overlayImages.length;
     const newSrc = overlayImages[overlayImgIndex];
     const newPhoto = overlayPhotos ? overlayPhotos[overlayImgIndex] : null;
-    slideElement(overlaySlider, dir, (el) => {
-      el.querySelector('.article-overlay-img').src = newSrc;
-      if (newPhoto) {
-        el.querySelector('#article-photo-caption').textContent = newPhoto.caption || '';
-        const link = el.querySelector('#article-photo-link');
-        if (newPhoto.link) { link.href = newPhoto.link; link.style.visibility = ''; }
-        else { link.style.visibility = 'hidden'; }
-      }
-    });
+    slideImage(overlayImg, newSrc, dir);
+    if (newPhoto) {
+      overlayPhotoBar.querySelector('#article-photo-caption').textContent = newPhoto.caption || '';
+    }
     overlayDots.querySelectorAll('.article-img-dot').forEach((d, i) => d.classList.toggle('active', i === overlayImgIndex));
   }
 
@@ -351,9 +350,6 @@ if (articleOverlay) {
       overlayPhotoBar.style.display = '';
       const firstPhoto = overlayPhotos[0];
       overlayPhotoBar.querySelector('#article-photo-caption').textContent = firstPhoto.caption || '';
-      const firstLink = overlayPhotoBar.querySelector('#article-photo-link');
-      if (firstPhoto.link) { firstLink.href = firstPhoto.link; firstLink.style.visibility = ''; }
-      else { firstLink.style.visibility = 'hidden'; }
     } else {
       overlayImages = [img.src];
       overlayPhotos = null;
