@@ -67,38 +67,87 @@
         </div>
         <div class="project-tags">
           <span class="tag">Acoustics</span>
-          <span class="tag">Engineering</span>
           <span class="tag">Electronics</span>
+          <span class="tag">Prototyping</span>
+          <span class="tag tag-university">University Project</span>
         </div>
 
         <div class="card-article">
           <div class="card-article-body">
             <h2>Overview</h2>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              Offshore salmon farming in New Zealand faces significant losses
+              from pinniped predation. Lethal control is prohibited under the
+              Marine Mammals Protection Act, and commercial acoustic deterrent
+              devices (ADDs) cost USD 3,400–4,800 per unit, making widespread
+              adoption difficult for smaller operations. The project aimed to
+              design, fabricate and test low-cost underwater acoustic
+              transducers suitable for in-house production, targeting the 9–11
+              kHz range at 150 dB re 1 µPa at 1m, with a total fabrication cost
+              under 500 NZD. This frequency band sits at the peak auditory
+              sensitivity of pinnipeds while remaining largely undetectable to
+              fish species.
             </p>
-            <h2>Design Process</h2>
+            <h2>Design</h2>
             <p>
-              Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-              cupidatat non proident, sunt in culpa qui officia deserunt mollit
-              anim id est laborum.
+              The transducer couples a 27mm piezoelectric disk element to a
+              rigid diaphragm inside a 50mm diameter PVC cylindrical housing.
+              Piezoelectric ceramics were used over conventional speakers for
+              their superior acoustic impedance matching with water, where air
+              speakers suffer significant energy loss when submerged. The
+              housing is sealed at both ends with 3mm laser-cut acrylic panels
+              compressed by six M8x30mm stainless steel bolts against a rubber
+              C-channel gasket, with silicone applied at cable pass-throughs
+              and panel interfaces. The diaphragm is oriented externally so
+              water pressure acts to enhance the seal. Electrical connections
+              are routed through a rear cable gland, allowing rear panel removal
+              for maintenance without disturbing the wiring. The modular design
+              allows component replacement without destructive disassembly.
             </p>
             <p>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae ab illo inventore veritatis et quasi architecto beatae vitae
-              dicta sunt explicabo.
+              Five diaphragm configurations were fabricated to compare material
+              effects: 0.45mm steel, 3mm standard acrylic, an enlarged acrylic
+              variant, 0.7mm aluminium, and brass. Each used the same housing
+              geometry to isolate the effect of diaphragm material and size.
+              Metal diaphragms were mounted using silicone with the
+              piezoelectric element bonded to the inner surface using
+              cyanoacrylate. The brass prototype was excluded after the
+              piezoelectric element broke during assembly.
+            </p>
+            <h2>Testing</h2>
+            <p>
+              Prototypes were tested in a 1.06 m³ water tank with a calibrated
+              hydrophone at 1m separation. An Aquarium Acoustic S1e hydrophone
+              at -180 dBV/µPa sensitivity connected to a Roland Octa-Capture
+              audio interface at 196 kHz sampling captured output via Room EQ
+              Wizard. A BK Precision LCR meter measured complex impedance and
+              phase angle at each test frequency, from which real electrical
+              power consumption was calculated. Each prototype underwent a
+              frequency sweep from 5 to 20 kHz to characterise broadband
+              response, followed by sustained measurements at 9, 10 and 11 kHz.
             </p>
             <h2>Results</h2>
             <p>
-              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit
-              aut fugit, sed quia consequuntur magni dolores eos qui ratione
-              voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem
-              ipsum quia dolor sit amet.
+              The steel diaphragm achieved 120.2 dB at 10 kHz, with a peak of
+              125.5 dB at 5.61 kHz. The enlarged acrylic panel reached 135.2 dB
+              at 18.86 kHz and 119.9 dB at 9 kHz. Acrylic diaphragms performed
+              better at higher frequencies due to their lower density and higher
+              stiffness-to-weight ratio, while steel performed better at lower
+              frequencies due to its greater mass. The enlarged acrylic
+              outperformed the standard acrylic by approximately 15 dB at 9
+              kHz, consistent with the increased radiating area improving
+              acoustic impedance matching with water. The aluminium prototype
+              failed during testing from water ingress through a compromised
+              seal, recording a post-failure peak of 64.8 dB.
+            </p>
+            <p>
+              Power consumption across functional prototypes ranged from 0.126
+              to 0.47 mW, closely matching the theoretical requirement of
+              0.17 mW. None of the prototypes reached the 150 dB target, though
+              the steel and enlarged acrylic results demonstrate potential for
+              further performance gains through increased drive power. Each unit
+              cost approximately NZD 18.20 to fabricate, a forty to fiftyfold
+              reduction compared to commercial alternatives.
             </p>
           </div>
         </div>
@@ -123,37 +172,71 @@
           <span class="tag">CAD</span>
           <span class="tag">ANSYS</span>
           <span class="tag">FEA</span>
-          <span class="tag">Structural</span>
+          <span class="tag tag-university">University Project</span>
         </div>
 
         <div class="card-article">
           <div class="card-article-body">
             <h2>Overview</h2>
             <p>
-              A load-bearing bracket designed in CAD and validated through
-              finite element analysis in ANSYS. The brief required the component
-              to survive 3 kN upward and 4 kN downward loading while keeping
-              mass to a minimum.
+              A structural bracket designed for a lightweight machine, required
+              to withstand a 4000N downward compressive load and a 3000N upward
+              tensile load. Cut from 9.5mm polycarbonate sheet with a yield
+              strength of 66.6MPa, the bracket must also allow five cables and
+              one pipe to pass through without interference.
             </p>
-            <h2>Design Process</h2>
+            <h2>FEA Setup</h2>
             <p>
-              Initial geometry was modelled around the mounting constraints and
-              load paths identified from the brief. Several iterations were run
-              through static structural analysis in ANSYS, with material removed
-              in low-stress regions between each pass.
+              The 2016 reference bracket and its physical test results were used
+              to calibrate the ANSYS simulation. Fixed supports were tested
+              first but prevented pin hole rotation, making them a poor
+              approximation of the real testing environment. Cylindrical
+              supports at pin holes A, B and C with a 1mm upward displacement
+              produced a reaction of 3188.9N against the measured 3056–3084N,
+              and were carried forward for the upward load case.
+              Compression-only supports gave a closer result for the downward
+              case at 4259.8N against the measured 3967–3990N. The final setup
+              uses a displacement boundary condition at pin D and reads the
+              reaction force directly, mirroring the physical test procedure.
+            </p>
+            <h2>Bracket Design</h2>
+            <p>
+              Both team members developed independent concept designs before
+              comparing results. Three typologies were evaluated in ANSYS, with
+              the first ruled out due to most of its load being translated into
+              bending rather than compression. The second typology was chosen
+              for its ability to resist both load directions through primarily
+              compressive forces, and for the distinct stress difference between
+              the two load cases, allowing directional stiffness to be tuned
+              through iteration.
             </p>
             <p>
-              Stress concentrations around the fixing holes were addressed
-              through fillet radii, and wall thicknesses were tuned to keep peak
-              von Mises stress within acceptable limits across both load cases.
+              Topology optimisation at 50% mass reduction provided the base
+              geometry. Pipe and cable placement was resolved beforehand, with
+              the final arrangement grouping the pipes in an elliptical cutout
+              and routing the cable through a separate square cutout. Four major
+              bracket iterations followed, each tested under 1mm upward and
+              downward displacement in ANSYS, with equivalent von Mises stress
+              kept below the 66.6MPa yield limit throughout.
+            </p>
+            <p>
+              Early iterations established the leg geometry but introduced too
+              many holes or excess material. The final design increased leg
+              widths, removed internal reinforcing bars and added fillets
+              throughout. The bracket was modelled at 9.2mm thickness rather
+              than the nominal 9.5mm to introduce a safety factor, based on a
+              measured average of 9.3mm across the physical polycarbonate
+              samples and the higher scoring penalty for yielding over
+              over-stiffness.
             </p>
             <h2>Results</h2>
             <p>
-              The final design met both load requirements with a comfortable
-              factor of safety while achieving a meaningful reduction in mass
-              compared to the initial solid geometry. The FEA-driven approach
-              allowed material to be removed with confidence rather than
-              guesswork.
+              Mesh convergence was confirmed using both hex-dominated and
+              tetrahedral meshes. The bracket yields at pinhole D at
+              approximately 5500N under compressive load, verified by hand
+              calculations for buckling. Machining uses a single 12mm tool
+              across roughing and finishing operations, the largest tool the
+              CAM software would allow given the 18mm cable hole diameter.
             </p>
           </div>
         </div>
@@ -176,38 +259,64 @@
         </div>
         <div class="project-tags">
           <span class="tag">3D Printing</span>
-          <span class="tag">Mechanism Design</span>
+          <span class="tag">CAD</span>
+          <span class="tag">Prototyping</span>
+          <span class="tag tag-university">University Project</span>
         </div>
 
         <div class="card-article">
           <div class="card-article-body">
             <h2>Overview</h2>
             <p>
-              A self-contained 3D printed box that moves a ball from one end to
-              the other without any electronics or external input. The project
-              was an exercise in passive mechanical motion — using only
-              geometry, gravity, and stored energy to drive the sequence.
+              A mechanism designed to move a 9.5mm steel ball from one side of
+              a 100x100x100mm acrylic box to the other in exactly 5 seconds,
+              driven by a 60 RPM input shaft. The entry and exit holes sit at
+              the same height, requiring both a way to initiate ball movement
+              and a timed hold at the exit.
             </p>
             <h2>Design Process</h2>
             <p>
-              The mechanism was designed around a series of ramps, gates, and a
-              spring-loaded release that trips as the ball reaches a set
-              position. Each stage was modelled in CAD and printed iteratively,
-              with tolerances adjusted between runs to ensure reliable
-              actuation.
+              Concept designs were developed independently by each team member
+              and evaluated through a morphological matrix and Pugh's analysis,
+              arriving at a declined ramp feeding into an Archimedes screw. The
+              initial layout was sketched in OpenBrush, a VR application,
+              before moving to CAD.
             </p>
             <p>
-              Getting the timing of the release consistent required careful
-              tuning of the spring preload and the ramp angle feeding into it.
-              The enclosure was designed to make the internal mechanism visible
-              from the outside.
+              The ramp sits at 5 degrees, delivering the ball to the screw in
+              0.317 seconds. The screw has a 15mm pitch and rotates 4 times,
+              carrying the ball 60mm to the exit in about 4 seconds. A crank
+              slider door holds it there and releases it just before the 5
+              second mark.
             </p>
-            <h2>Results</h2>
             <p>
-              The final version reliably transports the ball end-to-end in a
-              single smooth sequence. The project demonstrated how much
-              mechanical work can be done through careful geometry alone,
-              without any powered components.
+              The screw is suspended above a half-pipe support structure and
+              driven through a chain of bevel and spur gears from the input
+              shaft. Gears were generated through Autodesk's Design Accelerator
+              and joined by solid extrusions to maintain a 1:1 ratio
+              throughout. A twist-and-lock coupling holds the driving bevel
+              gear to the wall, locking anticlockwise to prevent loosening
+              under load.
+            </p>
+            <h2>Simulation and Results</h2>
+            <p>
+              Dynamic simulation in Autodesk Inventor placed the ball at the
+              exit at 4.71 seconds. Imposed motion replaced 3D gear contacts
+              to keep the simulation stable, with 3D contacts applied only to
+              the ramp, screw and half-pipe. The crank slider was not included
+              in the simulation.
+            </p>
+            <h2>Manufacturing</h2>
+            <p>
+              All parts were 3D printed in PLA on Prusa Slicer machines. Each
+              part was modelled 0.2mm undersized to suit the 0.4mm nozzle
+              tolerance, allowing assembly without adhesive. Prints were
+              batched to contain the cost of any failed run, oriented
+              largest-face-down to reduce supports. The half-pipe support went
+              through three iterations, with the final version shelling out the
+              legs to cut print time while maintaining rigidity. The full
+              mechanism cost around $14.66 and took approximately 271 minutes
+              to print.
             </p>
           </div>
         </div>
@@ -230,40 +339,56 @@
         </div>
         <div class="project-tags">
           <span class="tag">SLS</span>
-          <span class="tag">Aluminium</span>
           <span class="tag">CAD</span>
+          <span class="tag">Prototyping</span>
+          <span class="tag tag-university">University Project</span>
         </div>
 
         <div class="card-article">
           <div class="card-article-body">
-            <h2>Overview</h2>
+            <h2>Background</h2>
             <p>
-              A compact multitool keychain produced via selective laser
-              sintering in aluminium. The design integrates multiple functions
-              into a single rigid body — no moving parts, no assembly required.
-              Built to sit on a keyring and survive daily carry.
+              The brief was open-ended, so I designed something I'd genuinely
+              want on my keychain. During sketching I noticed the silhouette
+              looked like a chicken, with the Philips head as the comb and the
+              flathead as the beak. I have pet chickens, so it stuck.
             </p>
-            <h2>Design Process</h2>
+            <h2>Tools</h2>
             <p>
-              The challenge was fitting useful tool geometry into a form factor
-              small enough to be unobtrusive on a keychain. Each function had to
-              share material with the others, so the design was developed as a
-              single interlocking profile rather than a collection of separate
-              tools bolted together.
+              Scraper, 3.5mm Philips driver, flathead, bottle opener, and a
+              keyring holder cover the everyday stuff. The 2.5mm Allen key was
+              added for my camera tripod adapter specifically. The most
+              interesting part is the magnetic bit holder, which takes my Xiaomi
+              62-bit set. Two 3x2x1mm magnets press-fit into a pocket and hold
+              bits in securely while still being easy to swap, so the tool is
+              compatible with 60+ screw types.
             </p>
+            <h2>Getting it Right</h2>
             <p>
-              SLS in aluminium was chosen for its ability to produce fine detail
-              and sharp edges without the constraints of traditional machining
-              or FDM printing. Several iterations were produced, with edge
-              geometry and ergonomics refined between runs based on handling
-              feedback.
+              A few FDM prototypes sorted out placement and tolerances before
+              going to steel. The Philips tip was the most finicky part, with
+              tips distorting until features were kept above 0.4mm. The bottle
+              opener also got a finger slope after the first version felt
+              uncomfortable. Internally, corners are filleted to 0.5mm and
+              slopes kept under 45° throughout.
             </p>
-            <h2>Results</h2>
+            <h2>Finishing</h2>
             <p>
-              The final part is lightweight, durable, and comfortably fits
-              alongside keys without snagging. The SLS process produced clean,
-              consistent surfaces with no post-processing required beyond a
-              light media blast.
+              The steel print arrived with a rough base from the build plate,
+              which got sawed off and filed flat. A Dremel wire brush and
+              sandpaper finished the surface. Around 2.5 hours of work.
+            </p>
+            <h2>If I Did it Again</h2>
+            <p>
+              The bottle opener would be flipped. The ruler markings failed to
+              print and couldn't be fixed. The part also came out heavier than
+              expected since I was conservative with material removal in
+              structural areas. Everything functioned correctly though, and the
+              bit holder fit exactly as intended.
+            </p>
+            <h2>Stats</h2>
+            <p>
+              7 tools &nbsp;·&nbsp; Print: 6 min &nbsp;·&nbsp; Post-processing: 2.5 hrs &nbsp;·&nbsp; Part volume: 856.676 mm³ &nbsp;·&nbsp; Supports: none
             </p>
           </div>
         </div>
@@ -286,8 +411,7 @@
         </div>
         <div class="project-tags">
           <span class="tag">Soldering</span>
-          <span class="tag">Hotswap</span>
-          <span class="tag">Keyboards</span>
+          <span class="tag">Modding</span>
         </div>
       </div>
 
@@ -308,8 +432,8 @@
         </div>
         <div class="project-tags">
           <span class="tag">Soldering</span>
+          <span class="tag">Modding</span>
           <span class="tag">Repair</span>
-          <span class="tag">Peripherals</span>
         </div>
       </div>
 
@@ -331,7 +455,7 @@
         <div class="project-tags">
           <span class="tag">Film</span>
           <span class="tag">Photography</span>
-          <span class="tag">DIY</span>
+          <span class="tag">Digital</span>
         </div>
       </div>
 
@@ -374,7 +498,6 @@
         </div>
         <div class="project-tags">
           <span class="tag">3D Printing</span>
-          <span class="tag">CAD</span>
           <span class="tag">Custom Design</span>
         </div>
       </div>
@@ -427,9 +550,9 @@
           </p>
         </div>
         <div class="project-tags">
-          <span class="tag">Photography</span>
-          <span class="tag">Events</span>
           <span class="tag">Film</span>
+          <span class="tag">Digital</span>
+          <span class="tag">Events</span>
         </div>
         <div class="card-article">
           <div class="card-article-body">
