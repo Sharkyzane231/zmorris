@@ -382,11 +382,11 @@ if (articleOverlay) {
     if (articleContent) html += articleContent.innerHTML;
     overlayBody.innerHTML = html;
 
-    overlayScroll.scrollTop = 0;
     lockScroll();
     articleOverlay.style.display = 'block';
     articleOverlay.offsetHeight; // force reflow
     articleOverlay.classList.add('visible');
+    requestAnimationFrame(() => { overlayScroll.scrollTop = 0; });
     overlayScroll.focus({ preventScroll: true });
   }
 
